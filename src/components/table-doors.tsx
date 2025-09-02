@@ -1,0 +1,186 @@
+"use client";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
+import { countUp, countDown } from "@/app/actions";
+import EditDoorModal from "./edit-door";
+import { Minus, Plus } from "lucide-react";
+import { Door } from "@/shared/type";
+
+export function TableDoors({ doors }: { doors: Door[] }) {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isAvailable, setIsAvailable] = useState<boolean>(false);
+  const [filterWidth860, setFilterWidth860] = useState<boolean>(false);
+  const [filterWidth960, setFilterWidth960] = useState<boolean>(false);
+  const [filterLeft, setFilterLeft] = useState<boolean>(false);
+  const [filterRight, setFilterRight] = useState<boolean>(false);
+
+  const filteredDoors = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    const activeWidths: string[] = [
+      filterWidth860 ? "860" : "",
+      filterWidth960 ? "960" : "",
+    ].filter(Boolean);
+    const activeOpenings: Door["opening"][] = [
+      filterLeft ? "LEFT" : ("" as any),
+      filterRight ? "RIGHT" : ("" as any),
+    ].filter(Boolean) as Door["opening"][];
+
+    const extractWidth = (size: string): string => {
+      const [width] = size.split(/[xх]/i);
+      return (width || "").trim();
+    };
+
+    return doors.filter((d) => {
+      const matchesAvailability = !isAvailable || d.count > 0;
+      const matchesSearch = !term || d.name.toLowerCase().includes(term);
+      const width = extractWidth(d.size);
+      const matchesWidth =
+        activeWidths.length === 0 || activeWidths.includes(width);
+      const matchesOpening =
+        activeOpenings.length === 0 || activeOpenings.includes(d.opening);
+      return (
+        matchesAvailability && matchesSearch && matchesWidth && matchesOpening
+      );
+    });
+  }, [
+    doors,
+    searchTerm,
+    isAvailable,
+    filterWidth860,
+    filterWidth960,
+    filterLeft,
+    filterRight,
+  ]);
+
+  return (
+    <>
+      <div className="flex gap-4 items-start">
+        <div className="flex gap-4">
+          <p>В наличии</p>
+          <input
+            type="checkbox"
+            checked={isAvailable}
+            onChange={(e) => setIsAvailable(e.target.checked)}
+          />
+        </div>
+        <div className="border-x px-4 mx-2">
+          <div className="flex gap-4">
+            <p>860</p>
+            <input
+              type="checkbox"
+              checked={filterWidth860}
+              onChange={(e) => setFilterWidth860(e.target.checked)}
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <p>960</p>
+            <input
+              type="checkbox"
+              checked={filterWidth960}
+              onChange={(e) => setFilterWidth960(e.target.checked)}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col items-end">
+          <div className="flex gap-4">
+            <p>Левая</p>
+            <input
+              type="checkbox"
+              checked={filterLeft}
+              onChange={(e) => setFilterLeft(e.target.checked)}
+            />
+          </div>
+          <div className="flex gap-4">
+            <p>Правая</p>
+            <input
+              type="checkbox"
+              checked={filterRight}
+              onChange={(e) => setFilterRight(e.target.checked)}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="mt-4">
+        <input
+          type="text"
+          placeholder="Поиск по названию"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
+
+      <div className="w-full overflow-x-auto">
+        <table className="border mt-4 min-w-[900px]">
+          <thead>
+            <tr className="border">
+              <th className="px-2 ">№</th>
+              <th className="px-2">Название</th>
+              <th className="px-2">Открывание</th>
+              <th className="px-2">Размер</th>
+              <th className="px-2">Цвет</th>
+              <th className="px-2">Панель</th>
+              <th className="px-2">Кол-во</th>
+              <th className="px-2">Описание</th>
+              <th className="px-2">Ред</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredDoors.length === 0 ? (
+              <tr>
+                <td colSpan={8} className="text-center">
+                  Пока нет записей
+                </td>
+              </tr>
+            ) : (
+              filteredDoors.map((d, i) => (
+                <tr
+                  className={clsx("border", {
+                    "bg-gray-100": (i + 1) % 2 === 0,
+                    "bg-gray-200": (i + 1) % 2 === 1,
+                  })}
+                  key={d.id}
+                >
+                  <td className="px-2 align-top">{i + 1}</td>
+                  <td className="px-2 align-top">{d.name}</td>
+                  <td className="px-2 align-top">{d.opening}</td>
+                  <td className="px-2 align-top">{d.size}</td>
+                  <td className="px-2 align-top">{d.color}</td>
+                  <td className="px-2 align-top">{d.innerPanelColor}</td>
+                  <td className="px-2 flex py-1 gap-2 items-center align-top">
+                    <form action={countUp.bind(null, d.id)}>
+                      <button className="w-full max-w-md px-3 py-1 text-white cursor-pointer bg-green-600 rounded">
+                        <Plus />
+                      </button>
+                    </form>
+                    <p>{d.count}</p>
+                    <form action={countDown.bind(null, d.id)}>
+                      <button
+                        disabled={d.count === 0}
+                        className={clsx(
+                          "w-full max-w-md px-3 py-1 text-white cursor-pointer bg-red-600 rounded",
+                          {
+                            "opacity-50": d.count === 0,
+                          }
+                        )}
+                      >
+                        <Minus />
+                      </button>
+                    </form>
+                  </td>
+                  <td className="px-2 w-[300px] min-w-[300px] whitespace-normal break-words overflow-hidden text-ellipsis">
+                    {d.description}
+                  </td>
+                  <td className="px-2 flex py-1 gap-2 items-center">
+                    <EditDoorModal door={d} />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}

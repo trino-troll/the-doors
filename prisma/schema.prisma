@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Door {
+  id                 String  @id @default(cuid())
+  name               String  // Название двери
+  description        String? // Описание двери
+  size               String  // Размер двери (свободный формат, например 860x2050)
+  opening            Opening // Открывание: левое/правое
+  color              String  // Цвет двери
+  innerPanelColor    String  // Цвет внутренней панели
+  count              Int  @default(0) // количество
+
+  @@map("Двери")
+}
+
+enum Opening {
+  LEFT
+  RIGHT
+}
