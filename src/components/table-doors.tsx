@@ -13,9 +13,12 @@ export function TableDoors({ doors }: { doors: Door[] }) {
   const [filterWidth960, setFilterWidth960] = useState<boolean>(false);
   const [filterLeft, setFilterLeft] = useState<boolean>(false);
   const [filterRight, setFilterRight] = useState<boolean>(false);
+  const [searchColor, setSearchColor] = useState<string>("");
+  const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
 
   const filteredDoors = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
+    const color = searchColor.trim().toLowerCase();
     const activeWidths: string[] = [
       filterWidth860 ? "860" : "",
       filterWidth960 ? "960" : "",
@@ -29,22 +32,30 @@ export function TableDoors({ doors }: { doors: Door[] }) {
       const [width] = size.split(/[xх]/i);
       return (width || "").trim();
     };
+    console.log(searchColor);
 
     return doors.filter((d) => {
       const matchesAvailability = !isAvailable || d.count > 0;
       const matchesSearch = !term || d.name.toLowerCase().includes(term);
+      const matchesColor = !color || d.color.toLowerCase().includes(color);
+
       const width = extractWidth(d.size);
       const matchesWidth =
         activeWidths.length === 0 || activeWidths.includes(width);
       const matchesOpening =
         activeOpenings.length === 0 || activeOpenings.includes(d.opening);
       return (
-        matchesAvailability && matchesSearch && matchesWidth && matchesOpening
+        matchesAvailability &&
+        matchesSearch &&
+        matchesWidth &&
+        matchesOpening &&
+        matchesColor
       );
     });
   }, [
     doors,
     searchTerm,
+    searchColor,
     isAvailable,
     filterWidth860,
     filterWidth960,
@@ -54,60 +65,89 @@ export function TableDoors({ doors }: { doors: Door[] }) {
 
   return (
     <>
-      <div className="flex gap-4 items-start">
-        <div className="flex gap-4">
-          <p>В наличии</p>
-          <input
-            type="checkbox"
-            checked={isAvailable}
-            onChange={(e) => setIsAvailable(e.target.checked)}
-          />
-        </div>
-        <div className="border-x px-4 mx-2">
-          <div className="flex gap-4">
-            <p>860</p>
-            <input
-              type="checkbox"
-              checked={filterWidth860}
-              onChange={(e) => setFilterWidth860(e.target.checked)}
-            />
-          </div>
+      <button
+        className="px-4 py-1 rounded-lg bg-green-500 text-white font-semibold w-[330px] my-2"
+        onClick={() => setIsOpenFilter(!isOpenFilter)}
+      >
+        {isOpenFilter ? "Фильтры -" : "Фильтры +"}
+      </button>
+      {isOpenFilter && (
+        <>
+          <div className="flex gap-4 items-start">
+            <div className="flex gap-4">
+              <p>В наличии</p>
+              <input
+                type="checkbox"
+                checked={isAvailable}
+                onChange={(e) => setIsAvailable(e.target.checked)}
+              />
+            </div>
+            <div className="border-x px-4">
+              <div className="flex gap-4">
+                <p>860</p>
+                <input
+                  type="checkbox"
+                  checked={filterWidth860}
+                  onChange={(e) => setFilterWidth860(e.target.checked)}
+                />
+              </div>
 
-          <div className="flex gap-4">
-            <p>960</p>
-            <input
-              type="checkbox"
-              checked={filterWidth960}
-              onChange={(e) => setFilterWidth960(e.target.checked)}
-            />
+              <div className="flex gap-4">
+                <p>960</p>
+                <input
+                  type="checkbox"
+                  checked={filterWidth960}
+                  onChange={(e) => setFilterWidth960(e.target.checked)}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col items-end">
+              <div className="flex gap-4">
+                <p>Левая</p>
+                <input
+                  type="checkbox"
+                  checked={filterLeft}
+                  onChange={(e) => setFilterLeft(e.target.checked)}
+                />
+              </div>
+              <div className="flex gap-4">
+                <p>Правая</p>
+                <input
+                  type="checkbox"
+                  checked={filterRight}
+                  onChange={(e) => setFilterRight(e.target.checked)}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col items-end">
-          <div className="flex gap-4">
-            <p>Левая</p>
-            <input
-              type="checkbox"
-              checked={filterLeft}
-              onChange={(e) => setFilterLeft(e.target.checked)}
-            />
+          <div className="mt-2 flex flex-col gap-2">
+            <div className="flex flex-col">
+              <label htmlFor="searchColor" className="text-sm">
+                Поиск по цвету
+              </label>
+              <input
+                name="searchColor"
+                type="text"
+                placeholder="Поиск по цвету"
+                value={searchColor}
+                onChange={(e) => setSearchColor(e.target.value)}
+                className="w-[330px] p-1 border border-gray-300 rounded-lg"
+              />
+            </div>
           </div>
-          <div className="flex gap-4">
-            <p>Правая</p>
-            <input
-              type="checkbox"
-              checked={filterRight}
-              onChange={(e) => setFilterRight(e.target.checked)}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="mt-4">
+        </>
+      )}
+      <div className="flex flex-col">
+        <label htmlFor="searchTerm" className="text-sm">
+          Поиск по имени
+        </label>
         <input
+          name="searchTerm"
           type="text"
           placeholder="Поиск по названию"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-[330px] p-1 border border-gray-300 rounded-lg"
         />
       </div>
 
