@@ -19,7 +19,12 @@ export default function EditDoorModal({ door }: { door: Door }) {
         className="px-2 py-1 text-white bg-green-600 rounded"
         onClick={() => setOpen(true)}
       >
-        <Pencil strokeWidth={3} />
+        <span className="block lg:hidden">
+          <Pencil strokeWidth={3} size={14} />
+        </span>
+        <span className="hidden lg:block">
+          <Pencil strokeWidth={3} />
+        </span>
       </button>
 
       {open ? (

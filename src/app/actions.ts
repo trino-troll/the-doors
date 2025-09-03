@@ -37,3 +37,10 @@ export async function updateDoor(door: Door) {
 
   revalidatePath("/");
 }
+
+export async function deleteDoor(id: string) {
+  if (!id) return;
+  await prisma.door.delete({ where: { id } });
+
+  revalidatePath("/");
+}

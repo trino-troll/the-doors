@@ -3,8 +3,9 @@ import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { countUp, countDown } from "@/app/actions";
 import EditDoorModal from "./edit-door";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { Door } from "@/shared/type";
+import { DeleteDoor } from "./delite-door";
 
 export function TableDoors({ doors }: { doors: Door[] }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -122,7 +123,7 @@ export function TableDoors({ doors }: { doors: Door[] }) {
           </div>
           <div className="mt-2 flex flex-col gap-2">
             <div className="flex flex-col">
-              <label htmlFor="searchColor" className="text-sm">
+              <label htmlFor="searchColor" className="text-xs lg:text-sm">
                 Поиск по цвету
               </label>
               <input
@@ -138,7 +139,7 @@ export function TableDoors({ doors }: { doors: Door[] }) {
         </>
       )}
       <div className="flex flex-col">
-        <label htmlFor="searchTerm" className="text-sm">
+        <label htmlFor="searchTerm" className="text-xs lg:text-sm">
           Поиск по имени
         </label>
         <input
@@ -151,13 +152,13 @@ export function TableDoors({ doors }: { doors: Door[] }) {
         />
       </div>
 
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto text-sm lg:text-[18px]">
         <table className="border mt-4 min-w-[900px]">
           <thead>
             <tr className="border">
               <th className="px-2 ">№</th>
               <th className="px-2">Название</th>
-              <th className="px-2">Открывание</th>
+              <th className="px-2">Открыв</th>
               <th className="px-2">Размер</th>
               <th className="px-2">Цвет</th>
               <th className="px-2">Панель</th>
@@ -190,8 +191,13 @@ export function TableDoors({ doors }: { doors: Door[] }) {
                   <td className="px-2 align-top">{d.innerPanelColor}</td>
                   <td className="px-2 flex py-1 gap-2 items-center align-top">
                     <form action={countUp.bind(null, d.id)}>
-                      <button className="w-full max-w-md px-3 py-1 text-white cursor-pointer bg-green-600 rounded">
-                        <Plus />
+                      <button className="w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-green-600 rounded">
+                        <span className="block lg:hidden">
+                          <Plus size={14} strokeWidth={3} />
+                        </span>
+                        <span className="hidden lg:block">
+                          <Plus strokeWidth={3} />
+                        </span>
                       </button>
                     </form>
                     <p>{d.count}</p>
@@ -199,21 +205,25 @@ export function TableDoors({ doors }: { doors: Door[] }) {
                       <button
                         disabled={d.count === 0}
                         className={clsx(
-                          "w-full max-w-md px-3 py-1 text-white cursor-pointer bg-red-600 rounded",
+                          "w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-red-600 rounded",
                           {
                             "opacity-50": d.count === 0,
                           }
                         )}
                       >
-                        <Minus />
+                        <span className="block lg:hidden">
+                          <Minus size={14} strokeWidth={3} />
+                        </span>
+                        <span className="hidden lg:block">
+                          <Minus strokeWidth={3} />
+                        </span>
                       </button>
                     </form>
                   </td>
-                  <td className="px-2 w-[300px] min-w-[300px] whitespace-normal break-words overflow-hidden text-ellipsis">
-                    {d.description}
-                  </td>
+                  <td className="px-2">{d.description}</td>
                   <td className="px-2 flex py-1 gap-2 items-center">
                     <EditDoorModal door={d} />
+                    <DeleteDoor id={d.id} />
                   </td>
                 </tr>
               ))
