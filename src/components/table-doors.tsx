@@ -6,6 +6,8 @@ import EditDoorModal from "./edit-door";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Door } from "@/shared/type";
 import { DeleteDoor } from "./delite-door";
+import { CountUp } from "./count-up";
+import { CountDown } from "./count-down";
 
 export function TableDoors({ doors }: { doors: Door[] }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -190,40 +192,14 @@ export function TableDoors({ doors }: { doors: Door[] }) {
                   <td className="px-2 align-top">{d.color}</td>
                   <td className="px-2 align-top">{d.innerPanelColor}</td>
                   <td className="px-2 flex py-1 gap-2 items-center align-top">
-                    <form action={countUp.bind(null, d.id)}>
-                      <button className="w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-green-600 rounded">
-                        <span className="block lg:hidden">
-                          <Plus size={14} strokeWidth={3} />
-                        </span>
-                        <span className="hidden lg:block">
-                          <Plus strokeWidth={3} />
-                        </span>
-                      </button>
-                    </form>
+                    <CountUp id={d.id} name={d.name} />
                     <p>{d.count}</p>
-                    <form action={countDown.bind(null, d.id)}>
-                      <button
-                        disabled={d.count === 0}
-                        className={clsx(
-                          "w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-red-600 rounded",
-                          {
-                            "opacity-50": d.count === 0,
-                          }
-                        )}
-                      >
-                        <span className="block lg:hidden">
-                          <Minus size={14} strokeWidth={3} />
-                        </span>
-                        <span className="hidden lg:block">
-                          <Minus strokeWidth={3} />
-                        </span>
-                      </button>
-                    </form>
+                    <CountDown id={d.id} name={d.name} />
                   </td>
                   <td className="px-2">{d.description}</td>
                   <td className="px-2 flex py-1 gap-2 items-center">
                     <EditDoorModal door={d} />
-                    <DeleteDoor id={d.id} />
+                    <DeleteDoor id={d.id} name={d.name} />
                   </td>
                 </tr>
               ))

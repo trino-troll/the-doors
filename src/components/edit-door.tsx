@@ -5,10 +5,6 @@ import { Door } from "@/shared/type";
 import { Pencil, X } from "lucide-react";
 import { useState } from "react";
 
-type EditDoorModalProps = {
-  action: (formData: FormData) => Promise<void>;
-};
-
 export default function EditDoorModal({ door }: { door: Door }) {
   const [open, setOpen] = useState(false);
   const [editDoor, setEditDoor] = useState<Door>(door);
@@ -16,7 +12,7 @@ export default function EditDoorModal({ door }: { door: Door }) {
   return (
     <>
       <button
-        className="px-2 py-1 text-white bg-green-600 rounded"
+        className="px-2 py-1 text-white bg-green-600 rounded cursor-pointer"
         onClick={() => setOpen(true)}
       >
         <span className="block lg:hidden">
@@ -160,12 +156,12 @@ export default function EditDoorModal({ door }: { door: Door }) {
               <div className="flex items-center justify-end gap-2 mt-1">
                 <button
                   type="button"
-                  className="px-3 py-2 rounded border"
+                  className="px-3 py-2 rounded border cursor-pointer"
                   onClick={() => setOpen(false)}
                 >
                   Отмена
                 </button>
-                <button className="px-4 py-2 text-white bg-green-600 rounded">
+                <button className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer">
                   Сохранить
                 </button>
               </div>
