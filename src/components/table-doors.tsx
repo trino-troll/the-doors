@@ -1,9 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { useMemo, useState } from "react";
-import { countUp, countDown } from "@/app/actions";
 import EditDoorModal from "./edit-door";
-import { Minus, Plus, Trash2 } from "lucide-react";
 import { Door } from "@/shared/type";
 import { DeleteDoor } from "./delite-door";
 import { CountUp } from "./count-up";
@@ -35,7 +33,6 @@ export function TableDoors({ doors }: { doors: Door[] }) {
       const [width] = size.split(/[xх]/i);
       return (width || "").trim();
     };
-    console.log(searchColor);
 
     return doors.filter((d) => {
       const matchesAvailability = !isAvailable || d.count > 0;
@@ -66,10 +63,20 @@ export function TableDoors({ doors }: { doors: Door[] }) {
     filterRight,
   ]);
 
+  function clearFilter() {
+    setSearchTerm("");
+    setIsAvailable(false);
+    setFilterWidth860(false);
+    setFilterWidth960(false);
+    setFilterLeft(false);
+    setFilterRight(false);
+    setSearchColor("");
+  }
+
   return (
     <>
       <button
-        className="px-4 py-1 rounded-lg bg-green-500 text-white font-semibold w-[330px] my-2"
+        className="px-4 py-1 rounded-lg bg-green-600 text-white font-semibold w-[350px] my-2 cursor-pointer"
         onClick={() => setIsOpenFilter(!isOpenFilter)}
       >
         {isOpenFilter ? "Фильтры -" : "Фильтры +"}
@@ -140,18 +147,26 @@ export function TableDoors({ doors }: { doors: Door[] }) {
           </div>
         </>
       )}
-      <div className="flex flex-col">
-        <label htmlFor="searchTerm" className="text-xs lg:text-sm">
-          Поиск по имени
-        </label>
-        <input
-          name="searchTerm"
-          type="text"
-          placeholder="Поиск по названию"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-[330px] p-1 border border-gray-300 rounded-lg"
-        />
+      <div className="flex items-end gap-3">
+        <div className="flex flex-col">
+          <label htmlFor="searchTerm" className="text-xs lg:text-sm">
+            Поиск по имени
+          </label>
+          <input
+            name="searchTerm"
+            type="text"
+            placeholder="Поиск по названию"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-[270px] p-1 border border-gray-300 rounded-lg"
+          />
+        </div>
+        <button
+          className="px-4 py-1 rounded-lg bg-green-600 text-white font-semibold cursor-pointer"
+          onClick={clearFilter}
+        >
+          Сброс
+        </button>
       </div>
 
       <div className="w-full overflow-x-auto text-sm lg:text-[18px]">

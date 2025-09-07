@@ -13,10 +13,15 @@ export default function AddDoorModal({ action }: AddDoorModalProps) {
   return (
     <>
       <button
-        className="px-2 py-1 text-white bg-green-600 rounded"
+        className="px-2 lg:px-3 py-1 text-white cursor-pointer bg-green-600 rounded"
         onClick={() => setOpen(true)}
       >
-        <Plus strokeWidth={3} />
+        <span className="block lg:hidden">
+          <Plus strokeWidth={3} size={14} />
+        </span>
+        <span className="hidden lg:block">
+          <Plus strokeWidth={3} />
+        </span>
       </button>
 
       {open ? (

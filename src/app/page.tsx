@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import AddDoorModal from "@/components/AddDoorModal";
 import { TableDoors } from "@/components/table-doors";
+import { DropCountAll } from "@/components/drop-count-all";
 
 async function createDoor(formData: FormData) {
   "use server";
@@ -36,9 +37,12 @@ export default async function Home() {
   const doors = await prisma.door.findMany({ orderBy: { name: "asc" } });
   return (
     <div className="min-h-screen p-4 flex flex-col items-center">
-      <div className="flex gap-4">
-        <h1 className="text-xl font-semibold">Двери в наличии на складе</h1>
+      <div className="flex gap-3 mb-3">
+        <h1 className="text-lg md:text-xl font-semibold">
+          Двери в наличии на складе
+        </h1>
         <AddDoorModal action={createDoor} />
+        <DropCountAll />
       </div>
 
       {doors === null ? <p>Нет списка дверей</p> : <TableDoors doors={doors} />}

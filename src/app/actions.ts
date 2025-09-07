@@ -44,3 +44,11 @@ export async function deleteDoor(id: string) {
 
   revalidatePath("/");
 }
+
+export async function dropCountAll() {
+  await prisma.door.updateMany({
+    data: { count: 0 },
+  });
+
+  revalidatePath("/");
+}
