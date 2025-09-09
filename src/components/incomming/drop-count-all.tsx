@@ -1,23 +1,39 @@
 "use client";
 
 import { dropCountAll } from "@/app/actions";
-import { IterationCcw, X } from "lucide-react";
-import { useState } from "react";
+import { IterationCcw, Loader2, X } from "lucide-react";
+import { useState, useTransition } from "react";
 
 export function DropCountAll() {
   const [openDrop, setOpenDrop] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleDrop() {
+    setOpenDrop(false);
+    startTransition(async () => {
+      await dropCountAll();
+    });
+  }
+
   return (
     <>
       <button
+        disabled={isPending}
         onClick={() => setOpenDrop(true)}
         className="px-2 lg:px-3 py-1 text-white cursor-pointer bg-red-600 rounded"
       >
-        <span className="block lg:hidden">
-          <IterationCcw strokeWidth={3} size={14} />
-        </span>
-        <span className="hidden lg:block">
-          <IterationCcw strokeWidth={3} />
-        </span>
+        {isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <span className="block lg:hidden">
+              <IterationCcw strokeWidth={3} size={14} />
+            </span>
+            <span className="hidden lg:block">
+              <IterationCcw strokeWidth={3} />
+            </span>
+          </>
+        )}
       </button>
 
       {openDrop ? (
@@ -46,18 +62,18 @@ export function DropCountAll() {
             <p className="text-red-600 mt-2 font-semibold">
               Это приведет все двери к количеству равному 0
             </p>
-            <form
-              action={dropCountAll}
-              onSubmit={() => setOpenDrop(false)}
-              className="grid grid-cols-2 gap-3 mt-2"
-            >
+
+            <form onSubmit={handleDrop} className="grid grid-cols-2 gap-3 mt-2">
               <button
                 className="px-3 py-2 rounded-lg  border cursor-pointer"
                 onClick={() => setOpenDrop(false)}
               >
                 Отмена
               </button>
-              <button className="px-3 py-2 text-white bg-red-600 rounded-lg cursor-pointer">
+              <button
+                disabled={isPending}
+                className="px-3 py-2 text-white bg-red-600 rounded-lg cursor-pointer"
+              >
                 Обнулить
               </button>
             </form>

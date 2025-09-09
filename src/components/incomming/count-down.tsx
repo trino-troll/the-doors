@@ -1,10 +1,18 @@
 "use client";
 import { countDown } from "@/app/actions";
-import { Minus, X } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Minus, X } from "lucide-react";
+import { useState, useTransition } from "react";
 
 export function CountDown({ id, name }: { id: string; name: string }) {
   const [openDown, setOpenDown] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleCountDown = async () => {
+    setOpenDown(false);
+    startTransition(async () => {
+      await countDown(id);
+    });
+  };
 
   return (
     <>
@@ -12,12 +20,18 @@ export function CountDown({ id, name }: { id: string; name: string }) {
         className="w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-red-600 rounded"
         onClick={() => setOpenDown(true)}
       >
-        <span className="block lg:hidden">
-          <Minus size={14} strokeWidth={3} />
-        </span>
-        <span className="hidden lg:block">
-          <Minus strokeWidth={3} />
-        </span>
+        {isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <span className="block lg:hidden">
+              <Minus size={14} strokeWidth={3} />
+            </span>
+            <span className="hidden lg:block">
+              <Minus strokeWidth={3} />
+            </span>
+          </>
+        )}
       </button>
 
       {openDown ? (
@@ -40,11 +54,7 @@ export function CountDown({ id, name }: { id: string; name: string }) {
 
             <h2>Уменьшить количество дверей {name} ?</h2>
 
-            <form
-              action={countDown.bind(null, id)}
-              onSubmit={() => setOpenDown(false)}
-              className="grid grid-cols-2 gap-3"
-            >
+            <form onSubmit={handleCountDown} className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 className="px-3 py-2 rounded border cursor-pointer"
@@ -52,7 +62,10 @@ export function CountDown({ id, name }: { id: string; name: string }) {
               >
                 Отмена
               </button>
-              <button className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer">
+              <button
+                disabled={isPending}
+                className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer"
+              >
                 Уменьшить
               </button>
             </form>

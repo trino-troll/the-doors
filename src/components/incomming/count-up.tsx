@@ -1,23 +1,38 @@
 "use client";
 import { countUp } from "@/app/actions";
-import { Plus, X } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Plus, X } from "lucide-react";
+import { useState, useTransition } from "react";
 
 export function CountUp({ id, name }: { id: string; name: string }) {
   const [openUp, setOpenUp] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleCountUp = async () => {
+    setOpenUp(false);
+    startTransition(async () => {
+      await countUp(id);
+    });
+  };
 
   return (
     <>
       <button
         className="w-full max-w-md px-2 lg:px-3 py-1 text-white cursor-pointer bg-green-600 rounded"
         onClick={() => setOpenUp(true)}
+        disabled={isPending}
       >
-        <span className="block lg:hidden">
-          <Plus size={14} strokeWidth={3} />
-        </span>
-        <span className="hidden lg:block">
-          <Plus strokeWidth={3} />
-        </span>
+        {isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <span className="block lg:hidden">
+              <Plus size={14} strokeWidth={3} />
+            </span>
+            <span className="hidden lg:block">
+              <Plus strokeWidth={3} />
+            </span>
+          </>
+        )}
       </button>
 
       {openUp ? (
@@ -40,11 +55,7 @@ export function CountUp({ id, name }: { id: string; name: string }) {
 
             <h2>Увеличить количество дверей {name} ?</h2>
 
-            <form
-              action={countUp.bind(null, id)}
-              onSubmit={() => setOpenUp(false)}
-              className="grid grid-cols-2 gap-3"
-            >
+            <form className="grid grid-cols-2 gap-3" onSubmit={handleCountUp}>
               <button
                 type="button"
                 className="px-3 py-2 rounded border cursor-pointer"
@@ -52,7 +63,10 @@ export function CountUp({ id, name }: { id: string; name: string }) {
               >
                 Отмена
               </button>
-              <button className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer">
+              <button
+                className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer"
+                disabled={isPending}
+              >
                 Увеличить
               </button>
             </form>

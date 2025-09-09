@@ -2,12 +2,20 @@
 
 import { updateDoor } from "@/app/actions";
 import { Door } from "@/shared/type";
-import { Pencil, X } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Pencil, X } from "lucide-react";
+import { startTransition, useState, useTransition } from "react";
 
 export default function EditDoorModal({ door }: { door: Door }) {
   const [open, setOpen] = useState(false);
   const [editDoor, setEditDoor] = useState<Door>(door);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleEdit() {
+    setOpen(false);
+    startTransition(async () => {
+      await updateDoor(editDoor);
+    });
+  }
 
   return (
     <>
@@ -15,12 +23,18 @@ export default function EditDoorModal({ door }: { door: Door }) {
         className="px-2 py-1 text-white bg-green-600 rounded cursor-pointer"
         onClick={() => setOpen(true)}
       >
-        <span className="block lg:hidden">
-          <Pencil strokeWidth={3} size={14} />
-        </span>
-        <span className="hidden lg:block">
-          <Pencil strokeWidth={3} />
-        </span>
+        {isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <span className="block lg:hidden">
+              <Pencil strokeWidth={3} size={14} />
+            </span>
+            <span className="hidden lg:block">
+              <Pencil strokeWidth={3} />
+            </span>
+          </>
+        )}
       </button>
 
       {open ? (
@@ -42,7 +56,7 @@ export default function EditDoorModal({ door }: { door: Door }) {
             </div>
 
             <form
-              action={() => updateDoor(editDoor)} // Добавить акшен!!!
+              action={handleEdit}
               onSubmit={() => setOpen(false)}
               className="grid grid-cols-1 gap-3"
             >
@@ -161,7 +175,10 @@ export default function EditDoorModal({ door }: { door: Door }) {
                 >
                   Отмена
                 </button>
-                <button className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer">
+                <button
+                  disabled={isPending}
+                  className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer"
+                >
                   Сохранить
                 </button>
               </div>

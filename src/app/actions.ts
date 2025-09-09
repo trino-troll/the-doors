@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { routes } from "@/shared/const";
 import { Door } from "@/shared/type";
 import { revalidatePath } from "next/cache";
 
@@ -9,7 +10,7 @@ export async function countUp(id: string) {
     where: { id },
     data: { count: { increment: 1 } },
   });
-  revalidatePath("/");
+  revalidatePath(routes.INCOMMING);
 }
 
 export async function countDown(id: string) {
@@ -18,7 +19,7 @@ export async function countDown(id: string) {
     where: { id },
     data: { count: { decrement: 1 } },
   });
-  revalidatePath("/");
+  revalidatePath(routes.INCOMMING);
 }
 
 export async function updateDoor(door: Door) {
@@ -35,14 +36,14 @@ export async function updateDoor(door: Door) {
     },
   });
 
-  revalidatePath("/");
+  revalidatePath(routes.INCOMMING);
 }
 
 export async function deleteDoor(id: string) {
   if (!id) return;
   await prisma.door.delete({ where: { id } });
 
-  revalidatePath("/");
+  revalidatePath(routes.INCOMMING);
 }
 
 export async function dropCountAll() {
@@ -50,5 +51,5 @@ export async function dropCountAll() {
     data: { count: 0 },
   });
 
-  revalidatePath("/");
+  revalidatePath(routes.INCOMMING);
 }

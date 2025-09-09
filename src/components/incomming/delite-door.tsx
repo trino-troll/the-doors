@@ -1,22 +1,36 @@
 "use client";
 import { deleteDoor } from "@/app/actions";
-import { Trash2, X } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Trash2, X } from "lucide-react";
+import { useState, useTransition } from "react";
 
 export function DeleteDoor({ id, name }: { id: string; name: string }) {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleDeleteDoor() {
+    setOpenDelete(false);
+    startTransition(async () => {
+      await deleteDoor(id);
+    });
+  }
   return (
     <>
       <button
         className="p-2 py-1 rounded-lg bg-red-600 cursor-pointer"
         onClick={() => setOpenDelete(true)}
       >
-        <span className="block lg:hidden">
-          <Trash2 color="white" strokeWidth={3} size={14} />
-        </span>
-        <span className="hidden lg:block">
-          <Trash2 color="white" strokeWidth={3} />
-        </span>
+        {isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <span className="block lg:hidden">
+              <Trash2 color="white" strokeWidth={3} size={14} />
+            </span>
+            <span className="hidden lg:block">
+              <Trash2 color="white" strokeWidth={3} />
+            </span>
+          </>
+        )}
       </button>
 
       {openDelete ? (
@@ -40,8 +54,7 @@ export function DeleteDoor({ id, name }: { id: string; name: string }) {
             <h2>Удаление запеси о двери {name} ?</h2>
 
             <form
-              action={() => deleteDoor(id)}
-              onSubmit={() => setOpenDelete(false)}
+              onSubmit={handleDeleteDoor}
               className="grid grid-cols-2 gap-3"
             >
               <button
@@ -51,7 +64,10 @@ export function DeleteDoor({ id, name }: { id: string; name: string }) {
               >
                 Отмена
               </button>
-              <button className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer">
+              <button
+                disabled={isPending}
+                className="px-4 py-2 text-white bg-green-600 rounded cursor-pointer"
+              >
                 Удалить
               </button>
             </form>

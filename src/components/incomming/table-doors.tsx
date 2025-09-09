@@ -6,6 +6,7 @@ import { Door } from "@/shared/type";
 import { DeleteDoor } from "./delite-door";
 import { CountUp } from "./count-up";
 import { CountDown } from "./count-down";
+import { IterationCcw } from "lucide-react";
 
 export function TableDoors({ doors }: { doors: Door[] }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -76,7 +77,7 @@ export function TableDoors({ doors }: { doors: Door[] }) {
   return (
     <>
       <button
-        className="px-4 py-1 rounded-lg bg-green-600 text-white font-semibold w-[350px] my-2 cursor-pointer"
+        className="px-4 py-1 rounded-lg bg-green-600 text-white font-semibold w-[320px] my-2 cursor-pointer"
         onClick={() => setIsOpenFilter(!isOpenFilter)}
       >
         {isOpenFilter ? "Фильтры -" : "Фильтры +"}
@@ -158,14 +159,14 @@ export function TableDoors({ doors }: { doors: Door[] }) {
             placeholder="Поиск по названию"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-[270px] p-1 border border-gray-300 rounded-lg"
+            className="w-[250px] lg:w-[350px] p-1 border border-gray-300 rounded-lg"
           />
         </div>
         <button
           className="px-4 py-1 rounded-lg bg-green-600 text-white font-semibold cursor-pointer"
           onClick={clearFilter}
         >
-          Сброс
+          <IterationCcw />
         </button>
       </div>
 
