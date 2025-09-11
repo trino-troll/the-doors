@@ -31,3 +31,20 @@ enum Opening {
   LEFT
   RIGHT
 }
+
+// межкомнатные двери
+model BetweenDoor {
+  id                String  @id @default(cuid())
+  name              String
+  factory           String? // завод.фабрика произвводитель
+  is600             Int     @default(0)
+  is700             Int     @default(0)
+  is800             Int     @default(0)
+  is900             Int     @default(0)
+  analog            String? // аналоги на других заводах 
+  colors            String? // доступные цвета
+  innerFilling      String? // внутреннее наполнение
+  comment           String?
+  fotoUrl           String?
+  materials         String? // материалы 
+}

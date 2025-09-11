@@ -1,5 +1,5 @@
 export const routes = {
   MAIN: "/",
   INCOMMING: "/incomming",
-  BENWEEN_ROOM: "between-room",
+  BENWEEN_ROOM: "/between-room",
 };
