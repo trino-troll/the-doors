@@ -24,7 +24,7 @@ export function Art({ url }: { url: string | null }) {
             className="absolute inset-0 bg-black/50"
             onClick={() => setOpenArt(false)}
           />
-          <div className="relative z-10 w-[cals(100% - 32px)] max-w-md rounded-lg bg-white p-4 shadow-lg">
+          <div className="relative z-10 w-[calc(100% - 32px)] max-w-md rounded-lg bg-white p-4 shadow-lg">
             <Image
               src={`/door-${url}.jpg`}
               alt={`Арт №${url}`}

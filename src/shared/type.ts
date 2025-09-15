@@ -24,3 +24,9 @@ export type BetweenDoor = {
   comment: string | null;
   fotoUrl: string | null;
 };
+
+export type Color = {
+  id: string;
+  name: string;
+  url: string | null;
+};

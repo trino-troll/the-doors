@@ -45,3 +45,17 @@ export async function oneBetweenDoor({ id }: { id: string }) {
   if (!id) return;
   return await prisma.betweenDoor.findFirst({ where: { id } });
 }
+
+export async function createColor({
+  name,
+  url,
+}: {
+  name: string;
+  url: string | null;
+}) {
+  await prisma.color.create({ data: { name, url } });
+}
+
+export async function getColors() {
+  return await prisma.color.findMany();
+}

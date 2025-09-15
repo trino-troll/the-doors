@@ -27,7 +27,7 @@ export default async function DoorPage({ params }: DoorPageProps) {
   }
 
   return (
-    <div>
+    <div className="text-sm">
       <div className="flex gap-3 mb-2">
         <Link href={routes.BENWEEN_ROOM}>
           <Button>

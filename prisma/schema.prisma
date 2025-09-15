@@ -48,3 +48,10 @@ model BetweenDoor {
   fotoUrl           String?
   materials         String? // материалы 
 }
+
+// доступные цвета
+model Color {
+  id                String  @id @default(cuid())
+  name              String
+  url               String?
+}
