@@ -33,6 +33,14 @@ export async function updateDoor(door: Door) {
       opening: door.opening,
       color: door.color,
       innerPanelColor: door.innerPanelColor,
+      uplotnitel: door.uplotnitel,
+      zamki: door.zamki,
+      protivosem: door.protivosem,
+      vneshPanel: door.vneshPanel,
+      clouseBox: door.clouseBox,
+      porog: door.porog,
+      inner: door.inner,
+      sizesDoor: door.sizesDoor,
     },
   });
 
@@ -52,4 +60,10 @@ export async function dropCountAll() {
   });
 
   revalidatePath(routes.INCOMMING);
+}
+
+export async function getDoor({ id }: { id: string }) {
+  if (!id) return;
+
+  return await prisma.door.findFirst({ where: { id } });
 }

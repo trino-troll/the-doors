@@ -4,6 +4,8 @@ import AddDoorModal from "@/components/incomming/AddDoorModal";
 
 import { DropCountAll } from "@/components/incomming/drop-count-all";
 import { TableDoors } from "@/components/incomming/table-doors";
+import { Download } from "lucide-react";
+import { Button } from "@/shared/button";
 
 async function createDoor(formData: FormData) {
   "use server";
@@ -44,6 +46,18 @@ export default async function Home() {
         </h1>
         <AddDoorModal action={createDoor} />
         <DropCountAll />
+        <form action="/incomming/export/xlsx" method="get">
+          <span className="block lg:hidden">
+            <Button variant="outline">
+              <Download size={14} />
+            </Button>
+          </span>
+          <span className="hidden lg:block">
+            <Button variant="outline">
+              <Download />
+            </Button>
+          </span>
+        </form>
       </div>
 
       {doors === null ? <p>Нет списка дверей</p> : <TableDoors doors={doors} />}

@@ -23,6 +23,14 @@ model Door {
   color              String  // Цвет двери
   innerPanelColor    String  // Цвет внутренней панели
   count              Int  @default(0) // количество
+  uplotnitel         String?
+  zamki              String?
+  protivosem         Boolean   @default(true)
+  vneshPanel         String? // внешняя панель мдф, если есть
+  clouseBox          Boolean  @default(false) // открытый короб
+  porog              Boolean   @default(false) // нержавеющий парог
+  inner              String?   // утеплитель внутри
+  sizesDoor          String?   // размеры коробки и полотна
 
   @@map("Двери")
 }

@@ -7,6 +7,14 @@ export type Door = {
   innerPanelColor: string;
   count: number;
   description: string | null;
+  uplotnitel: string | null;
+  zamki: string | null;
+  protivosem: boolean;
+  vneshPanel: string | null;
+  clouseBox: boolean;
+  porog: boolean;
+  inner: string | null;
+  sizesDoor: string | null;
 };
 
 export type BetweenDoor = {
