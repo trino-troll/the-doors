@@ -75,3 +75,9 @@ model Record {
 
   @@map("Records")
 }
+
+model Price {
+  id          String  @id @default(cuid())
+  name        String
+  price       String
+}

@@ -1,11 +1,5 @@
 import Link from "next/link";
-import { routes } from "./const";
-
-const listNave = [
-  { href: routes.MAIN, title: "Главная" },
-  { href: routes.INCOMMING, title: "Металл" },
-  { href: routes.BENWEEN_ROOM, title: "Межкомнатные" },
-];
+import { listNave } from "./const";
 
 export function Navbar() {
   return (

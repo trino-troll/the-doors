@@ -38,3 +38,9 @@ export type Color = {
   name: string;
   url: string | null;
 };
+
+export type Price = {
+  id: string;
+  name: string;
+  price: string;
+};
