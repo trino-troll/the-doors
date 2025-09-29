@@ -15,6 +15,7 @@ export function NavbarMobile({ user }: NavigationProps) {
         { href: routes.INCOMMING, title: 'Входящие' },
         { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
         { href: routes.RECORDS, title: 'Записи' },
+        { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
     ];
 
     // Добавляем админские пункты для GOOD пользователей

@@ -53,3 +53,12 @@ export interface NavigationProps {
         role: UserRole;
     } | null;
 }
+
+export type OrderInStock = {
+    id: string;
+    numberOrder: string;
+    shortDescription: string | null;
+    fullDescription: string | null;
+    url: string | null;
+    completed: boolean;
+};

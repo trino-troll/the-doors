@@ -1,91 +1,100 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+    provider = "prisma-client-js"
+    output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model Door {
-  id              String  @id @default(cuid())
-  name            String
-  description     String?
-  size            String
-  opening         Opening
-  color           String
-  innerPanelColor String
-  count           Int     @default(0)
-  uplotnitel      String?
-  zamki           String?
-  protivosem      Boolean @default(true)
-  vneshPanel      String?
-  clouseBox       Boolean @default(false)
-  porog           Boolean @default(false)
-  inner           String?
-  sizesDoor       String?
+    id              String  @id @default(cuid())
+    name            String
+    description     String?
+    size            String
+    opening         Opening
+    color           String
+    innerPanelColor String
+    count           Int     @default(0)
+    uplotnitel      String?
+    zamki           String?
+    protivosem      Boolean @default(true)
+    vneshPanel      String?
+    clouseBox       Boolean @default(false)
+    porog           Boolean @default(false)
+    inner           String?
+    sizesDoor       String?
 
-  @@map("Двери")
+    @@map("Двери")
 }
 
 model BetweenDoor {
-  id           String  @id @default(cuid())
-  name         String
-  factory      String?
-  is600        Int     @default(0)
-  is700        Int     @default(0)
-  is800        Int     @default(0)
-  is900        Int     @default(0)
-  analog       String?
-  colors       String?
-  innerFilling String?
-  comment      String?
-  fotoUrl      String?
-  materials    String?
+    id           String  @id @default(cuid())
+    name         String
+    factory      String?
+    is600        Int     @default(0)
+    is700        Int     @default(0)
+    is800        Int     @default(0)
+    is900        Int     @default(0)
+    analog       String?
+    colors       String?
+    innerFilling String?
+    comment      String?
+    fotoUrl      String?
+    materials    String?
 }
 
 model Color {
-  id   String  @id @default(cuid())
-  name String
-  url  String?
+    id   String  @id @default(cuid())
+    name String
+    url  String?
 }
 
 model Record {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  quantity    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+    id          String   @id @default(cuid())
+    title       String
+    description String?
+    quantity    Int      @default(0)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
-  @@map("Records")
+    @@map("Records")
 }
 
 model Price {
-  id    String @id @default(cuid())
-  name  String
-  price String
+    id    String @id @default(cuid())
+    name  String
+    price String
 }
 
 enum Opening {
-  LEFT
-  RIGHT
+    LEFT
+    RIGHT
 }
 
 model User {
-  id       String  @id @default(cuid())
-  name     String
-  email    String  @unique
-  phone    String?
-  password String
-  role     Role    @default(USER)
+    id       String  @id @default(cuid())
+    name     String
+    email    String  @unique
+    phone    String?
+    password String
+    role     Role    @default(USER)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 enum Role {
-  GOOD
-  USER
+    GOOD
+    USER
+}
+
+model OrderInStock {
+    id               String  @id @default(cuid())
+    numberOrder      String
+    shortDescription String?
+    fullDescription  String?
+    url              String?
+    completed        Boolean @default(false)
 }
