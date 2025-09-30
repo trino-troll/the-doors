@@ -59,6 +59,6 @@ export type OrderInStock = {
     numberOrder: string;
     shortDescription: string | null;
     fullDescription: string | null;
-    url: string | null;
+    url: string[] | null;
     completed: boolean;
 };
