@@ -14,6 +14,8 @@ export default async function OrderInStock() {
                 <AddOrder />
             </div>
 
+            <p className="mb-2 text-red-600">В разработке</p>
+
             <ListOrders listOrder={listOrder} />
         </div>
     );
