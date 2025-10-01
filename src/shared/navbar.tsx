@@ -8,7 +8,7 @@ export function Navbar({ user }: NavigationProps) {
     // публичные страницы
     const navbarItems = [
         { href: routes.MAIN, title: 'Главная' },
-        { href: routes.INCOMMING, title: 'Входящие' },
+        { href: routes.INCOMMING, title: 'Входные' },
         { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
         { href: routes.RECORDS, title: 'Записи' },
         { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },

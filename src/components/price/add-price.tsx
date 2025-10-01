@@ -39,7 +39,7 @@ export function AddPrice() {
                     <div className="relative z-10 w-[calc(100% -32)] max-w-md rounded-lg bg-white p-4 shadow-lg">
                         <div className="flex items-center justify-between mb-2">
                             <h2 className="text-base font-semibold">
-                                Добавление межк омнотной двери
+                                Добавление цены
                             </h2>
                             <button
                                 className="px-2 py-1 text-sm text-gray-600 hover:text-black"

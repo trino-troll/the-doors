@@ -12,7 +12,7 @@ export default async function BetweenRoomPage() {
                         Страница межкомнатных дверей
                     </h2>
                     <p className="text-red-600 font-semibold">
-                        Данные на 26.09.25г
+                        Данные на 01.10.25г
                     </p>
                 </div>
                 <AddDoorBetween />

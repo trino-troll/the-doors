@@ -13,6 +13,7 @@ export function MoreButton({ order }: { order: OrderInStock }) {
     const [openMore, setOpenMore] = useState<boolean>(false);
     const [editOrder, setEditOrder] = useState<OrderInStock>(order);
     const [isUploading, setIsUploading] = useState<boolean>(false);
+    const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const fileRef = useRef<HTMLInputElement | null>(null);
 
@@ -118,13 +119,37 @@ export function MoreButton({ order }: { order: OrderInStock }) {
         }
     }
 
-    function removePhoto(index: number) {
-        const updatedPhotos = [...(editOrder.url || [])];
-        updatedPhotos.splice(index, 1);
-        setEditOrder({
-            ...editOrder,
-            url: updatedPhotos,
-        });
+    async function removePhoto(index: number) {
+        const photos = editOrder.url || [];
+        const fileUrl = photos[index];
+        if (!fileUrl) return;
+
+        try {
+            setDeletingIndex(index);
+            const resp = await fetch('/api/upload/deleteFiles', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    orderId: editOrder.id,
+                    files: [fileUrl],
+                }),
+            });
+
+            const result = await resp.json();
+            if (!resp.ok || !result.success) {
+                const msg = result?.error || 'Не удалось удалить файл';
+                alert(msg);
+                return;
+            }
+
+            const updatedPhotos = photos.filter((_, i) => i !== index);
+            setEditOrder({ ...editOrder, url: updatedPhotos });
+        } catch (e) {
+            console.error(e);
+            alert('Ошибка при удалении файла');
+        } finally {
+            setDeletingIndex(null);
+        }
     }
 
     return (
@@ -254,7 +279,7 @@ export function MoreButton({ order }: { order: OrderInStock }) {
                                             fullDescription: e.target.value,
                                         })
                                     }
-                                    rows={5}
+                                    rows={7}
                                 />
                             </div>
 

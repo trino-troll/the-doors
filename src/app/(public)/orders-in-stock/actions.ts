@@ -47,7 +47,7 @@ export async function updateOrderInStock({ order }: { order: OrderInStock }) {
             numberOrder: order.numberOrder,
             shortDescription: order.shortDescription,
             fullDescription: order.fullDescription,
-            url: order.url,
+            url: order.url || [],
             completed: order.completed,
         },
     });
