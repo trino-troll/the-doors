@@ -1,3 +1,5 @@
+import { StatusOrderInStock } from '@/generated/prisma';
+
 export type Door = {
     id: string;
     name: string;
@@ -61,4 +63,5 @@ export type OrderInStock = {
     fullDescription: string | null;
     url: string[] | null;
     completed: boolean;
+    statusInStock: StatusOrderInStock;
 };

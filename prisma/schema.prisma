@@ -91,10 +91,18 @@ enum Role {
 }
 
 model OrderInStock {
-    id               String   @id @default(cuid())
+    id               String             @id @default(cuid())
     numberOrder      String
     shortDescription String?
     fullDescription  String?
-    url              String[] @default([])
-    completed        Boolean  @default(false)
+    url              String[]           @default([])
+    completed        Boolean            @default(false)
+    statusInStock    StatusOrderInStock @default(ORDERED)
+}
+
+enum StatusOrderInStock {
+    ORDERED
+    IN_STOCK
+    DELIVERY_PROCESS
+    DELIVERED
 }

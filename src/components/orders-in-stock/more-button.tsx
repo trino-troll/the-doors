@@ -5,9 +5,11 @@ import { Button } from '@/shared/button';
 import { Input } from '@/shared/input';
 import { OrderInStock } from '@/shared/type';
 import clsx from 'clsx';
-import { X, Trash2 } from 'lucide-react';
+import { X, Trash2, Loader2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { statusOrder } from './card-order';
+import { StatusOrderInStock } from '@/generated/prisma';
 
 export function MoreButton({ order }: { order: OrderInStock }) {
     const [openMore, setOpenMore] = useState<boolean>(false);
@@ -243,6 +245,40 @@ export function MoreButton({ order }: { order: OrderInStock }) {
 
                             <div className="flex flex-col gap-1">
                                 <label
+                                    htmlFor="statusInStock"
+                                    className="text-xs lg:text-sm"
+                                >
+                                    Статус
+                                </label>
+                                <select
+                                    name="statusInStock"
+                                    defaultValue={editOrder.statusInStock}
+                                    className="flex px-2 py-1 rounded-md border border-gray-200 bg-white text-[16px] ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
+                                    onChange={(e) =>
+                                        setEditOrder({
+                                            ...editOrder,
+                                            statusInStock: e.target
+                                                .value as StatusOrderInStock,
+                                        })
+                                    }
+                                >
+                                    <option value={'ORDERED'}>
+                                        {statusOrder.ORDERED}
+                                    </option>
+                                    <option value={'IN_STOCK'}>
+                                        {statusOrder.IN_STOCK}
+                                    </option>
+                                    <option value={'DELIVERY_PROCESS'}>
+                                        {statusOrder.DELIVERY_PROCESS}
+                                    </option>
+                                    <option value={'DELIVERED'}>
+                                        {statusOrder.DELIVERED}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label
                                     htmlFor="shortDesc"
                                     className="text-xs lg:text-sm"
                                 >
@@ -309,9 +345,28 @@ export function MoreButton({ order }: { order: OrderInStock }) {
                                                     onClick={() =>
                                                         removePhoto(index)
                                                     }
-                                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                    disabled={
+                                                        deletingIndex === index
+                                                    }
+                                                    className={clsx(
+                                                        'absolute -top-2 -right-2 rounded-full p-1 transition-opacity',
+                                                        'bg-red-500 text-white',
+                                                        'opacity-0 group-hover:opacity-100',
+                                                        {
+                                                            'opacity-50 cursor-not-allowed group-hover:opacity-50':
+                                                                deletingIndex ===
+                                                                index,
+                                                        }
+                                                    )}
                                                 >
-                                                    <Trash2 size={14} />
+                                                    {deletingIndex === index ? (
+                                                        <Loader2
+                                                            size={14}
+                                                            className="animate-spin"
+                                                        />
+                                                    ) : (
+                                                        <Trash2 size={14} />
+                                                    )}
                                                 </button>
                                             </div>
                                         ))}

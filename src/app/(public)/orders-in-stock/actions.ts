@@ -41,6 +41,8 @@ export async function updateOrderInStock({ order }: { order: OrderInStock }) {
     if (!updatedOrder)
         throw new Error('Не удалось найти запись для обновления');
 
+    const complet = order.statusInStock === 'DELIVERED';
+
     await prisma.orderInStock.update({
         where: { id: order.id },
         data: {
@@ -48,7 +50,8 @@ export async function updateOrderInStock({ order }: { order: OrderInStock }) {
             shortDescription: order.shortDescription,
             fullDescription: order.fullDescription,
             url: order.url || [],
-            completed: order.completed,
+            completed: complet || order.completed,
+            statusInStock: order.statusInStock,
         },
     });
 
