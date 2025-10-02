@@ -8,24 +8,29 @@ export default async function OrderInStock(props: {
     searchParams?: Promise<{
         order?: string;
         short?: string;
+        status?: string;
     }>;
 }) {
     const listOrder = await getOrdersInStock();
     const searchParams = await props.searchParams;
     const order = searchParams?.order || '';
     const short = searchParams?.short || '';
+    const status = searchParams?.status || '';
 
     let filtered = listOrder;
 
     if (order) {
         filtered = filtered.filter((item) =>
-            item.numberOrder.toLowerCase().includes(order)
+            item.numberOrder.toLowerCase().includes(order.toLowerCase())
         );
     }
     if (short) {
         filtered = filtered.filter((item) =>
             item.shortDescription?.toLowerCase().includes(short.toLowerCase())
         );
+    }
+    if (status) {
+        filtered = filtered.filter((item) => item.statusInStock === status);
     }
 
     return (
@@ -36,9 +41,10 @@ export default async function OrderInStock(props: {
                 </h2>
                 <AddOrder />
             </div>
+            <p className="mb-2 text-red-600">Страница в разработке</p>
 
             <SearchOrder />
-            <p className="mb-2 text-red-600">В разработке</p>
+            <p>Показано ({filtered.length})</p>
 
             <Suspense>
                 <ListOrders listOrder={filtered} />

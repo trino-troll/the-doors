@@ -15,6 +15,8 @@ export function CardOrder({ order }: { order: OrderInStock }) {
             className={clsx(
                 'p-3 rounded-2xl border-2 border-gray-300 text-xs md:text-sm',
                 {
+                    'bg-amber-200': order.statusInStock === 'IN_STOCK',
+                    'bg-blue-200': order.statusInStock === 'DELIVERY_PROCESS',
                     'bg-green-100': order.completed,
                 }
             )}
@@ -31,15 +33,17 @@ export function CardOrder({ order }: { order: OrderInStock }) {
             <div className="flex justify-between">
                 <p>Статус</p>
                 <p
-                    className={clsx('px-2 py-1 rounded-lg ', {
+                    className={clsx('px-2 py-1 rounded-lg font-semibold', {
                         'bg-green-100': order.statusInStock === 'DELIVERED',
+                        'bg-blue-100':
+                            order.statusInStock === 'DELIVERY_PROCESS',
                         'bg-amber-100': order.statusInStock !== 'DELIVERED',
                     })}
                 >
                     {statusOrder[order.statusInStock]}
                 </p>
             </div>
-            <p className="my-2 text-sm py-2 px-4 rounded-2xl border border-gray-300">
+            <p className="my-2 text-sm py-2 px-4 rounded-2xl border border-gray-600">
                 {order.shortDescription}
             </p>
             <MoreButton order={order} />

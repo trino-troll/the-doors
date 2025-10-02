@@ -1,9 +1,14 @@
+import { CheckGptConnection } from '@/components/home/check-gpt-connection';
+
 export default function MainPage() {
     return (
-        <>
-            <h2 className="mb-4 text-center text-lg lg:text-3xl font-semibold">
-                Спавочник продавца
-            </h2>
+        <section>
+            <div>
+                <h2 className="text-center text-lg lg:text-3xl font-semibold">
+                    Спавочник продавца
+                </h2>
+                <CheckGptConnection />
+            </div>
             <div className="rounded-lg lg:rounded-3xl border-2 border-blue-600">
                 <h2 className="text-white font-semibold rounded-t-lg lg:rounded-t-3xl text-xl bg-blue-600  text-center py-2">
                     ВАЖНО!!!
@@ -53,6 +58,6 @@ export default function MainPage() {
                     РАБОТА САЙТА МОЖЕТ ПОДВИСАТЬ
                 </p>
             </div>
-        </>
+        </section>
     );
 }
