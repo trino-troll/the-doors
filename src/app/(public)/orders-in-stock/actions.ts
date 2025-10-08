@@ -3,7 +3,11 @@
 import { prisma } from '@/lib/prisma';
 import { routes } from '@/shared/const';
 import { OrderInStock } from '@/shared/type';
-import { revalidatePath } from 'next/cache';
+import {
+    revalidatePath,
+    unstable_cacheTag as cacheTag,
+    revalidateTag,
+} from 'next/cache';
 
 export async function addOrder({
     numberOrder,
@@ -22,10 +26,13 @@ export async function addOrder({
         },
     });
 
-    revalidatePath(routes.ORDER_IN_STOCK);
+    revalidateTag('orderInStock');
+    // revalidatePath(routes.ORDER_IN_STOCK);
 }
 
 export async function getOrdersInStock() {
+    'use cache';
+    cacheTag('orderInStock');
     return await prisma.orderInStock.findMany({
         orderBy: { numberOrder: 'desc' },
     });

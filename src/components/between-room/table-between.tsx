@@ -45,9 +45,6 @@ export function TableBetween({
                             <th className="border-r">700</th>
                             <th className="border-r">800</th>
                             <th className="border-r">900</th>
-                            <th className="border-r">Завод</th>
-                            <th className="border-r">Матер</th>
-                            <th className="border-r">Fill</th>
                             <th className="border-r">Comment</th>
                             <th className="border-r">URL</th>
                             <th>Ред</th>
@@ -86,15 +83,6 @@ export function TableBetween({
                                     </td>
                                     <td className="px-1 align-top text-center border-r">
                                         {d.is900}
-                                    </td>
-                                    <td className="px-1 align-top border-r">
-                                        {d.factory}
-                                    </td>
-                                    <td className="px-1 align-top border-r">
-                                        {d.materials}
-                                    </td>
-                                    <td className="px-1 align-top border-r">
-                                        {d.innerFilling}
                                     </td>
                                     <td className="px-1 align-top border-r text-sm">
                                         {d.comment && d.comment.length > 40

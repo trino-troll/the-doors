@@ -44,7 +44,13 @@ export default async function DoorPage({ params }: DoorPageProps) {
                     <tr className="border">
                         <td className="px-1 border-r align-top">Завод</td>
                         <td className="px-1 font-semibold align-top">
-                            {door.factory}
+                            {door.factory
+                                ? door.factory
+                                      .split(',')
+                                      .map((factory) => (
+                                          <p key={factory}>{factory}</p>
+                                      ))
+                                : ''}
                         </td>
                     </tr>
                     <tr className="border">
@@ -55,13 +61,18 @@ export default async function DoorPage({ params }: DoorPageProps) {
                     </tr>
                     <tr className="border">
                         <td className="px-1 border-r align-top">
-                            Доступные цвета:
+                            Доступные<br></br> цвета:
                         </td>
-                        <td className="px-1 font-semibold align-top">
+                        <td className="px-1 align-top">
                             {door.colors && door.colors.length > 0 ? (
                                 <ul>
                                     {door.colors.split('\n').map((line, i) => (
-                                        <li key={line + i}>{line}</li>
+                                        <li key={line + i}>
+                                            <span className="font-semibold">
+                                                {line.split(':')[0]}
+                                            </span>
+                                            <span>{line.split(':')[1]}</span>
+                                        </li>
                                     ))}
                                 </ul>
                             ) : (
@@ -71,7 +82,7 @@ export default async function DoorPage({ params }: DoorPageProps) {
                     </tr>
                     <tr className="border">
                         <td className="px-1 border-r align-top">
-                            Внутреннее наполнение:
+                            Внутреннее<br></br> наполнение:
                         </td>
                         <td className="px-1 font-semibold align-top">
                             {door.innerFilling}

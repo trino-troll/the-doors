@@ -3,7 +3,8 @@
 import { prisma } from '@/lib/prisma';
 import { routes } from '@/shared/const';
 import { BetweenDoor } from '@/shared/type';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { cacheTag } from 'next/dist/server/use-cache/cache-tag';
 
 export async function addBetweenDoor({ name }: { name: string }) {
     await prisma.betweenDoor.create({
@@ -39,9 +40,12 @@ export async function updateBetweenDoor({ door }: { door: BetweenDoor }) {
     });
 
     revalidatePath(routes.BETWEEN_ROOM);
+    revalidateTag('oneBetweenDoor');
 }
 
 export async function oneBetweenDoor({ id }: { id: string }) {
+    'use cache';
+    cacheTag('oneBetweenDoor', id);
     if (!id) return;
     return await prisma.betweenDoor.findFirst({ where: { id } });
 }
