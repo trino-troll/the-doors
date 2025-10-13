@@ -68,36 +68,6 @@ export async function getDoor({ id }: { id: string }) {
     return await prisma.door.findFirst({ where: { id } });
 }
 
-export async function askHuggingFace(question: string) {
-    try {
-        const response = await fetch(
-            'https://router.huggingface.co/v1/chat/completions',
-            {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${process.env.HF_TOKEN}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    model: 'moonshotai/Kimi-K2-Instruct-0905',
-                    messages: [
-                        {
-                            role: 'user',
-                            content: question,
-                        },
-                    ],
-                }),
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const completion = await response.json();
-        return completion.choices[0].message.content;
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
-    }
+export async function getNameIncommingDoors() {
+    return prisma.door.findMany({ select: { name: true } });
 }

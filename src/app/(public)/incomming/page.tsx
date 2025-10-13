@@ -48,7 +48,7 @@ export default async function IncommingPage() {
         <div className="min-h-screen flex flex-col items-center">
             <div className="flex gap-2 mb-3">
                 <h1 className="text-lg md:text-xl font-semibold">
-                    Двери в наличии на складе на 06.10.25
+                    Двери в наличии на складе на 13.10.25
                 </h1>
                 <AddDoorModal action={createDoor} />
                 <DropCountAll />

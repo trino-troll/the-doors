@@ -65,3 +65,8 @@ export type OrderInStock = {
     completed: boolean;
     statusInStock: StatusOrderInStock;
 };
+
+export type Message = {
+    role: 'USER' | 'AI';
+    text: string;
+};

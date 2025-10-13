@@ -106,3 +106,10 @@ enum StatusOrderInStock {
     DELIVERY_PROCESS
     DELIVERED
 }
+
+model OrderBN {
+    id          String  @id @default(cuid())
+    name        String
+    orderNumber String
+    in1C        Boolean @default(false)
+}
