@@ -12,6 +12,7 @@ export function Navbar({ user }: NavigationProps) {
         { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
         { href: routes.RECORDS, title: 'Записи' },
         { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
+        { href: routes.ORDER_BN, title: 'Заказы БН' },
     ];
 
     // Добавляем админские пункты для GOOD пользователей

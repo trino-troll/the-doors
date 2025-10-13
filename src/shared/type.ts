@@ -70,3 +70,10 @@ export type Message = {
     role: 'USER' | 'AI';
     text: string;
 };
+
+export type OrderBN = {
+    id: string;
+    name: string;
+    orderNumber: string | null;
+    in1C: boolean;
+};

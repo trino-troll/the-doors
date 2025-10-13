@@ -110,6 +110,6 @@ enum StatusOrderInStock {
 model OrderBN {
     id          String  @id @default(cuid())
     name        String
-    orderNumber String
+    orderNumber String?
     in1C        Boolean @default(false)
 }
