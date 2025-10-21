@@ -13,6 +13,7 @@ export function Navbar({ user }: NavigationProps) {
         { href: routes.RECORDS, title: 'Записи' },
         { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
         { href: routes.ORDER_BN, title: 'Заказы БН' },
+        { href: routes.INFO, title: 'Справка' },
     ];
 
     // Добавляем админские пункты для GOOD пользователей

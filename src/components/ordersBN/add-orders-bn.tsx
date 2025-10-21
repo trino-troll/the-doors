@@ -92,7 +92,6 @@ export default function AddOrderBN() {
                                     onChange={(e) =>
                                         setOrderNumber(e.target.value)
                                     }
-                                    required
                                 />
                             </div>
 

@@ -1,13 +1,12 @@
-import { getOrderBN } from '@/app/(public)/ordersBN/actions';
 import clsx from 'clsx';
 import EditOrderBN from './edit-orderBN';
 import { DeleteOrderBN } from './delite-orderBN';
+import { OrderBN } from '@/shared/type';
 
-export async function ListOrderBN() {
-    const orderBN = await getOrderBN();
+export async function ListOrderBN({ list }: { list: OrderBN[] }) {
     return (
         <div className="overflow-x-auto mt-4">
-            <table className="min-w-full  border text-sm">
+            <table className="border text-sm">
                 <thead>
                     <tr className="border">
                         <th className="p-2 border-r">№</th>
@@ -18,15 +17,17 @@ export async function ListOrderBN() {
                     </tr>
                 </thead>
                 <tbody>
-                    {orderBN && orderBN.length > 0 ? (
-                        orderBN.map((order, i) => (
+                    {list && list.length > 0 ? (
+                        list.map((order, i) => (
                             <tr
                                 key={order.id}
                                 className={clsx('border', {
                                     'bg-gray-100': (i + 1) % 2 === 0,
                                 })}
                             >
-                                <td className="p-2 border-r">{i + 1}</td>
+                                <td className="p-2 border-r text-center">
+                                    {i + 1}
+                                </td>
                                 <td className="p-2 border-r">{order.name}</td>
                                 <td className="p-2 border-r">
                                     {order.orderNumber}

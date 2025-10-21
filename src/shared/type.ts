@@ -77,3 +77,18 @@ export type OrderBN = {
     orderNumber: string | null;
     in1C: boolean;
 };
+
+export type EcoshponPDK = {
+    model: string;
+    price_opt: number;
+    available_colors: string;
+    other_colors: string;
+    construction: string;
+    coating: string;
+    features: string;
+    height: string;
+    width: string;
+    thickness: string;
+    custom_sizes: string;
+    image: string | null;
+};

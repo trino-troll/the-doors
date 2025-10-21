@@ -7,4 +7,5 @@ export const routes = {
     LOGIN: '/login',
     ORDER_IN_STOCK: '/orders-in-stock',
     ORDER_BN: '/ordersBN',
+    INFO: '/info',
 };

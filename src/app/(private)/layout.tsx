@@ -14,9 +14,9 @@ export default async function PrivateLayout({
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className="min-h-screen flex">
             {/* Основной контент */}
-            <main className="flex-1 p-6">{children}</main>
+            <main className="flex-1">{children}</main>
         </div>
     );
 }

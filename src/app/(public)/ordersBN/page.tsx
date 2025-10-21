@@ -1,7 +1,23 @@
 import AddOrderBN from '@/components/ordersBN/add-orders-bn';
 import { ListOrderBN } from '@/components/ordersBN/listOrderBn';
+import { SearchOrderBN } from '@/components/ordersBN/search-orderBN';
+import { getOrderBN } from './actions';
 
-export default function OrdersBN() {
+export default async function OrdersBN(props: {
+    searchParams?: Promise<{
+        BN: string;
+    }>;
+}) {
+    let filtered = await getOrderBN();
+    const searchParams = await props.searchParams;
+    const bn = searchParams?.BN || '';
+
+    if (bn) {
+        filtered = filtered.filter((item) =>
+            item.name.toLowerCase().includes(bn.toLowerCase())
+        );
+    }
+
     return (
         <div>
             <div className="flex gap-4">
@@ -10,7 +26,8 @@ export default function OrdersBN() {
                 </h1>
                 <AddOrderBN />
             </div>
-            <ListOrderBN />
+            <SearchOrderBN />
+            <ListOrderBN list={filtered} />
         </div>
     );
 }
