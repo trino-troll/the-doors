@@ -10,19 +10,24 @@ import { logOut } from '@/app/(public)/login/actions';
 
 export function NavbarMobile({ user }: NavigationProps) {
     // публичные страницы
-    const navbarItemsMob = [
-        { href: routes.MAIN, title: 'Главная' },
-        { href: routes.INCOMMING, title: 'Входные' },
-        { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
-        { href: routes.RECORDS, title: 'Записи' },
-        { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
-        { href: routes.ORDER_BN, title: 'Заказы БН' },
-        { href: routes.INFO, title: 'Справка' },
-    ];
+    const navbarItemsMob = [{ href: routes.MAIN, title: 'Главная' }];
+
+    if (user) {
+        navbarItemsMob.push(
+            { href: routes.INCOMMING, title: 'Входные' },
+            { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
+            { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' }
+        );
+    }
 
     // Добавляем админские пункты для GOOD пользователей
     if (user && user.role === 'GOOD') {
-        navbarItemsMob.push({ href: routes.PRICES, title: 'Цены' });
+        navbarItemsMob.push(
+            { href: routes.PRICES, title: 'Цены' },
+            { href: routes.INFO, title: 'Справка' },
+            { href: routes.RECORDS, title: 'Записи' },
+            { href: routes.ORDER_BN, title: 'Заказы БН' }
+        );
     }
 
     const [openNav, setOpenNav] = useState<boolean>(false);

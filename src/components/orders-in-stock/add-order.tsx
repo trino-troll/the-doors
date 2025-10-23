@@ -1,6 +1,6 @@
 'use client';
 
-import { addOrder } from '@/app/(public)/orders-in-stock/actions';
+import { addOrder } from '@/app/(private)/orders-in-stock/actions';
 import { Button } from '@/shared/button';
 import { Input } from '@/shared/input';
 import { Plus, X } from 'lucide-react';

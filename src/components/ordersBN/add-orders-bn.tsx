@@ -1,6 +1,6 @@
 'use client';
 
-import { addOrderBN } from '@/app/(public)/ordersBN/actions';
+import { addOrderBN } from '@/app/(private)/ordersBN/actions';
 import { Plus, X } from 'lucide-react';
 import { useState } from 'react';
 

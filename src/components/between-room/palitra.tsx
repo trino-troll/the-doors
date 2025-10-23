@@ -1,4 +1,4 @@
-import { getColors } from '@/app/(public)/between-room/actions';
+import { getColors } from '@/app/(private)/between-room/actions';
 import { AddColor } from './add-color';
 import { BigArt } from './big-art';
 

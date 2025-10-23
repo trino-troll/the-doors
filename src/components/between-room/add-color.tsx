@@ -1,6 +1,6 @@
 'use client';
 
-import { createColor } from '@/app/(public)/between-room/actions';
+import { createColor } from '@/app/(private)/between-room/actions';
 import { Button } from '@/shared/button';
 import { Input } from '@/shared/input';
 import { Plus } from 'lucide-react';

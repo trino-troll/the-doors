@@ -1,6 +1,6 @@
 'use client';
 
-import { updateBetweenDoor } from '@/app/(public)/between-room/actions';
+import { updateBetweenDoor } from '@/app/(private)/between-room/actions';
 import { Input } from '@/shared/input';
 import { BetweenDoor } from '@/shared/type';
 import { Pencil, X } from 'lucide-react';

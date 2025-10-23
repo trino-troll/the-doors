@@ -6,19 +6,24 @@ import { logOut } from '@/app/(public)/login/actions';
 
 export function Navbar({ user }: NavigationProps) {
     // публичные страницы
-    const navbarItems = [
-        { href: routes.MAIN, title: 'Главная' },
-        { href: routes.INCOMMING, title: 'Входные' },
-        { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
-        { href: routes.RECORDS, title: 'Записи' },
-        { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
-        { href: routes.ORDER_BN, title: 'Заказы БН' },
-        { href: routes.INFO, title: 'Справка' },
-    ];
+    const navbarItems = [{ href: routes.MAIN, title: 'Главная' }];
+
+    if (user) {
+        navbarItems.push(
+            { href: routes.INCOMMING, title: 'Входные' },
+            { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
+            { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' }
+        );
+    }
 
     // Добавляем админские пункты для GOOD пользователей
     if (user && user.role === 'GOOD') {
-        navbarItems.push({ href: routes.PRICES, title: 'Цены' });
+        navbarItems.push(
+            { href: routes.PRICES, title: 'Цены' },
+            { href: routes.INFO, title: 'Справка' },
+            { href: routes.RECORDS, title: 'Записи' },
+            { href: routes.ORDER_BN, title: 'Заказы БН' }
+        );
     }
     return (
         <div className="flex flex-col h-[100%]">

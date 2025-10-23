@@ -1,5 +1,5 @@
 'use client';
-import { deleteOrderBN } from '@/app/(public)/ordersBN/actions';
+import { deleteOrderBN } from '@/app/(private)/ordersBN/actions';
 import { Loader2, Trash2, X } from 'lucide-react';
 import { useState, useTransition } from 'react';
 

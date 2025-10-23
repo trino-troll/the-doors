@@ -1,6 +1,6 @@
 'use client';
 
-import { editOrderBN } from '@/app/(public)/ordersBN/actions';
+import { editOrderBN } from '@/app/(private)/ordersBN/actions';
 import { OrderBN } from '@/shared/type';
 import { Loader2, Pencil, X } from 'lucide-react';
 import { useState, useTransition } from 'react';

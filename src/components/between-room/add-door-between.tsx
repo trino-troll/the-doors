@@ -1,6 +1,6 @@
 'use client';
 
-import { addBetweenDoor } from '@/app/(public)/between-room/actions';
+import { addBetweenDoor } from '@/app/(private)/between-room/actions';
 import { Button } from '@/shared/button';
 import { Input } from '@/shared/input';
 import { Plus, X } from 'lucide-react';

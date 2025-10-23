@@ -1,6 +1,5 @@
 'use client';
 
-import { updateOrderInStock } from '@/app/(public)/orders-in-stock/actions';
 import { Button } from '@/shared/button';
 import { Input } from '@/shared/input';
 import { OrderInStock } from '@/shared/type';
@@ -10,6 +9,7 @@ import { statusOrder } from './card-order';
 import { StatusOrderInStock } from '@/generated/prisma';
 import { LoadeFiles } from './loade-files';
 import { X } from 'lucide-react';
+import { updateOrderInStock } from '@/app/(private)/orders-in-stock/actions';
 
 export function MoreButton({ order }: { order: OrderInStock }) {
     const [openMore, setOpenMore] = useState<boolean>(false);

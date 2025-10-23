@@ -1,7 +1,14 @@
 import { SendAI } from '@/components/home/send-ai';
 import { WarningNotifycation } from '@/components/home/warning-notifycation';
+import { getCurrentUser } from '@/lib/auth';
 
-export default function MainPage() {
+export default async function MainPage() {
+    const user = await getCurrentUser();
+
+    if (!user) {
+        return <div>Что ты тут ищешь, странник?</div>;
+    }
+
     return (
         <section className="flex flex-col h-full min-h-[700px]">
             <div>
