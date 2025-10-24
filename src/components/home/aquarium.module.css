@@ -1,0 +1,280 @@
+/* Аквариум */
+.aquarium {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #7dd3fc, #3b82f6);
+    overflow: hidden;
+    min-height: 100vh;
+    z-index: 1000;
+}
+
+/* Рыбка */
+.fish {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 60px;
+    transition: left 0.1s linear;
+    z-index: 10;
+}
+
+.fish .body {
+    width: 80px;
+    height: 50px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    border-radius: 50%;
+    position: absolute;
+    animation: fish-swim 2s ease-in-out infinite;
+}
+
+.fish .tail {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.fish .eye {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.fish .eye::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: black;
+    border-radius: 50%;
+    top: 7px;
+    left: 7px;
+}
+
+.fish .fin {
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background: #ff8e8e;
+    border-radius: 50%;
+    animation: fin-move 1s ease-in-out infinite alternate;
+}
+
+/* Рыбка смотрит вправо */
+.fishRight .body {
+    transform: scaleX(1);
+    left: 0;
+}
+
+.fishRight .tail {
+    left: -25px;
+    border-width: 20px 0 20px 30px;
+    border-color: transparent transparent transparent #ff6b6b;
+}
+
+.fishRight .eye {
+    right: 15px;
+    top: 15px;
+}
+
+.fishRight .fin {
+    left: 30px;
+    top: -5px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Рыбка смотрит влево */
+.fishLeft .body {
+    transform: scaleX(-1);
+    right: 0;
+}
+
+.fishLeft .tail {
+    right: -25px;
+    border-width: 20px 30px 20px 0;
+    border-color: transparent #ff6b6b transparent transparent;
+}
+
+.fishLeft .eye {
+    left: 15px;
+    top: 15px;
+}
+
+.fishLeft .fin {
+    right: 30px;
+    top: -5px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* Пузыри */
+.bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    bottom: 20px;
+    animation: bubble-rise linear forwards;
+}
+
+@keyframes bubble-rise {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    70% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+/* Анимации рыбки */
+@keyframes fish-swim {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-5px) rotate(-3deg);
+    }
+    75% {
+        transform: translateY(3px) rotate(3deg);
+    }
+}
+
+@keyframes fin-move {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(1.3);
+    }
+}
+
+/* Водоросли */
+.seaweed1 {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 8px;
+    height: 120px;
+    background: linear-gradient(to top, #22c55e, #16a34a);
+    clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        80% 20%,
+        60% 40%,
+        40% 60%,
+        20% 80%,
+        0% 100%
+    );
+    animation: seaweed-sway 4s ease-in-out infinite;
+    z-index: 5;
+}
+
+.seaweed2 {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 6px;
+    height: 80px;
+    background: linear-gradient(to top, #16a34a, #15803d);
+    clip-path: polygon(
+        20% 0%,
+        80% 0%,
+        100% 20%,
+        80% 40%,
+        60% 60%,
+        40% 80%,
+        20% 100%,
+        0% 80%
+    );
+    animation: seaweed-sway 3s ease-in-out infinite 1s;
+    z-index: 5;
+}
+
+.seaweed3 {
+    position: absolute;
+    bottom: 0;
+    right: 20%;
+    width: 10px;
+    height: 150px;
+    background: linear-gradient(to top, #4ade80, #22c55e);
+    clip-path: polygon(
+        30% 0%,
+        70% 0%,
+        90% 15%,
+        70% 30%,
+        50% 50%,
+        30% 70%,
+        10% 90%,
+        0% 100%
+    );
+    animation: seaweed-sway 5s ease-in-out infinite 0.5s;
+    z-index: 5;
+}
+
+.seaweed4 {
+    position: absolute;
+    bottom: 0;
+    right: 35%;
+    width: 7px;
+    height: 100px;
+    background: linear-gradient(to top, #15803d, #166534);
+    clip-path: polygon(
+        40% 0%,
+        60% 0%,
+        80% 20%,
+        60% 40%,
+        40% 60%,
+        20% 80%,
+        0% 100%
+    );
+    animation: seaweed-sway 3.5s ease-in-out infinite 1.5s;
+    z-index: 5;
+}
+
+/* Камни */
+.rock1 {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 60px;
+    height: 25px;
+    background: #6b7280;
+    border-radius: 50% 50% 0 0;
+    z-index: 4;
+}
+
+.rock2 {
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+    width: 80px;
+    height: 30px;
+    background: #4b5563;
+    border-radius: 40% 40% 0 0;
+    z-index: 4;
+}
+
+@keyframes seaweed-sway {
+    0%,
+    100% {
+        transform: skewX(0deg);
+    }
+    25% {
+        transform: skewX(3deg);
+    }
+    75% {
+        transform: skewX(-3deg);
+    }
+}
