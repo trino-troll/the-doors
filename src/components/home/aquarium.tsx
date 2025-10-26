@@ -19,7 +19,7 @@ const Aquarium = () => {
     const [bubbles, setBubbles] = useState<Bubble[]>([]);
     const aquariumRef = useRef<HTMLDivElement>(null);
 
-    const FISH_SPEED = 2;
+    const FISH_SPEED = 0.5;
     const FISH_MARGIN = 50;
     const BUBBLE_INTERVAL = 800;
 
