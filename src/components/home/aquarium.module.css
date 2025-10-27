@@ -278,3 +278,29 @@
         transform: skewX(-3deg);
     }
 }
+
+/* Стиль для пузырей с высоким z-index */
+.bubble[style*='z-index: 15'] {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Убираем фиксированный top для рыбки, теперь он задается через style */
+.fish {
+    position: absolute;
+    transform: translateY(-50%); /* Центрируем по вертикали относительно top */
+    width: 100px;
+    height: 60px;
+    transition: left 0.1s linear;
+    z-index: 10;
+}
+
+/* Остальные стили остаются без изменений */
+.fish .body {
+    width: 80px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    animation: fish-swim 2s ease-in-out infinite;
+}

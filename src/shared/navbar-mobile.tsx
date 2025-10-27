@@ -26,7 +26,8 @@ export function NavbarMobile({ user }: NavigationProps) {
             { href: routes.PRICES, title: 'Цены' },
             { href: routes.INFO, title: 'Справка' },
             { href: routes.RECORDS, title: 'Записи' },
-            { href: routes.ORDER_BN, title: 'Заказы БН' }
+            { href: routes.ORDER_BN, title: 'Заказы БН' },
+            { href: routes.FOR_GOOD, title: 'Админка' }
         );
     }
 
