@@ -2,14 +2,14 @@ import Aquarium from '@/components/home/aquarium';
 import { SendAI } from '@/components/home/send-ai';
 import { WarningNotifycation } from '@/components/home/warning-notifycation';
 import { getCurrentUser } from '@/lib/auth';
-import { getUsers } from './(private)/for-good/actions';
+import { getNameUser } from './(private)/for-good/actions';
 
 export default async function MainPage() {
-    const users = await getUsers();
+    const names = await getNameUser();
     const user = await getCurrentUser();
 
     if (!user) {
-        return <Aquarium fishes={users.length} />;
+        return <Aquarium fishes={names.length} names={names} />;
     }
 
     return (

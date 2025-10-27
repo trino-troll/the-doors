@@ -15,17 +15,19 @@ export async function createUser({
     email,
     password,
     role,
+    nickName,
 }: {
     name: string;
     phone: string | null;
     email: string;
     password: string;
     role: 'GOOD' | 'USER';
+    nickName: string | null;
 }) {
     if (!name || !email || !password) return;
 
     await prisma.user.create({
-        data: { name, phone, email, password, role },
+        data: { name, phone, email, password, role, nickName },
     });
 
     revalidatePath(routes.FOR_GOOD);
@@ -51,6 +53,7 @@ export async function editUser({ user }: { user: User }) {
                 phone: user.phone,
                 password: user.password,
                 role: user.role,
+                nickName: user.nickName,
             },
         });
 
@@ -73,4 +76,8 @@ export async function deleteUser({ id }: { id: string }) {
     } catch (err) {
         throw new Error('Не удалось удалить пользователя' + err);
     }
+}
+
+export async function getNameUser() {
+    return await prisma.user.findMany({ select: { nickName: true } });
 }

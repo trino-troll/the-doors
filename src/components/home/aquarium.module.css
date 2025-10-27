@@ -304,3 +304,18 @@
     position: absolute;
     animation: fish-swim 2s ease-in-out infinite;
 }
+
+.fishName {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(52, 54, 63, 0.7);
+    color: greenyellow;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 20;
+    font-weight: 700;
+}

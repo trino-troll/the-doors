@@ -100,6 +100,7 @@ export type User = {
     phone: string | null;
     password: string;
     role: 'GOOD' | 'USER';
+    nickName: string | null;
     createdAt: Date;
     updatedAt: Date;
 };

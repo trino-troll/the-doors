@@ -34,6 +34,10 @@ export function CardUser({ user }: { user: User }) {
                 <p>{user.role}</p>
             </div>
             <div className="flex justify-between">
+                <p>Позывной:</p>
+                <p>{user.nickName}</p>
+            </div>
+            <div className="flex justify-between">
                 <p>Пароль:</p>
                 <p>
                     {user.password.length > 10

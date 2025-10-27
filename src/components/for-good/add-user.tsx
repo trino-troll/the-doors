@@ -10,6 +10,7 @@ export default function AddUser() {
     const [email, setEmail] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [role, setRole] = useState<'GOOD' | 'USER'>('USER');
+    const [nickName, setNickName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
     function hendleAdd() {
@@ -24,6 +25,7 @@ export default function AddUser() {
             email,
             password,
             role,
+            nickName,
         });
         setOpen(false);
     }
@@ -105,23 +107,6 @@ export default function AddUser() {
 
                             <div className="relative">
                                 <label
-                                    htmlFor="phone"
-                                    className="text-xs absolute px-2 bg-white -top-2 left-2"
-                                >
-                                    Телефон
-                                </label>
-                                <input
-                                    name="phone"
-                                    type="text"
-                                    placeholder="+79991234567"
-                                    className="border-2 border-gray-200 focus:ring-2 focus:ring-green-500 focus:outline-none w-full rounded px-2 py-1"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="relative">
-                                <label
                                     htmlFor="password"
                                     className="text-xs absolute -top-2 left-2 px-2 bg-white"
                                 >
@@ -160,6 +145,42 @@ export default function AddUser() {
                                     <option value="USER">Пользователь</option>
                                     <option value="ADMIN">Админ</option>
                                 </select>
+                            </div>
+
+                            <div className="relative">
+                                <label
+                                    htmlFor="phone"
+                                    className="text-xs absolute px-2 bg-white -top-2 left-2"
+                                >
+                                    Телефон
+                                </label>
+                                <input
+                                    name="phone"
+                                    type="text"
+                                    placeholder="+79991234567"
+                                    className="border-2 border-gray-200 focus:ring-2 focus:ring-green-500 focus:outline-none w-full rounded px-2 py-1"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="relative">
+                                <label
+                                    htmlFor="nickName"
+                                    className="text-xs absolute px-2 bg-white -top-2 left-2"
+                                >
+                                    Позывной
+                                </label>
+                                <input
+                                    name="nickName"
+                                    type="text"
+                                    placeholder="Бурилло"
+                                    className="border-2 border-gray-200 focus:ring-2 focus:ring-green-500 focus:outline-none w-full rounded px-2 py-1"
+                                    value={nickName}
+                                    onChange={(e) =>
+                                        setNickName(e.target.value)
+                                    }
+                                />
                             </div>
 
                             <div className="flex items-center justify-end gap-2 mt-1">

@@ -20,9 +20,16 @@ interface Fish {
     top: number; // Новая позиция по вертикали
     speed: number; // Разная скорость для каждой рыбки
     color: string; // Разный цвет для каждой рыбки
+    name: string; //Имя рыбки
 }
 
-const Aquarium = ({ fishes }: { fishes: number }) => {
+const Aquarium = ({
+    fishes,
+    names,
+}: {
+    fishes: number;
+    names: { nickName: string | null }[];
+}) => {
     const [fishList, setFishList] = useState<Fish[]>([]);
     const [bubbles, setBubbles] = useState<Bubble[]>([]);
     const aquariumRef = useRef<HTMLDivElement>(null);
@@ -41,6 +48,7 @@ const Aquarium = ({ fishes }: { fishes: number }) => {
                 top: Math.random() * 60 + 20, // случайная высота от 20% до 80%
                 speed: Math.random() * 0.8 + 0.3, // разная скорость от 0.3 до 1.1
                 color: getRandomFishColor(), // случайный цвет
+                name: names[i].nickName ?? '',
             });
         }
         setFishList(newFishes);
@@ -142,6 +150,9 @@ const Aquarium = ({ fishes }: { fishes: number }) => {
                         // Применяем индивидуальный цвет для каждой рыбки
                     }}
                 >
+                    {fish.name && (
+                        <div className={styles.fishName}>{fish.name}</div>
+                    )}
                     <div
                         className={styles.body}
                         style={{ background: fish.color }}

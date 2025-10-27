@@ -91,28 +91,6 @@ export function EditUser({ user }: { user: User }) {
 
                             <div className="relative">
                                 <label
-                                    htmlFor="phone"
-                                    className="text-xs absolute -top-2 left-2 px-2 bg-white"
-                                >
-                                    Телефон
-                                </label>
-                                <input
-                                    name="phone"
-                                    type="text"
-                                    placeholder="Телефон"
-                                    className="focus:ring-2 focus:ring-green-500 focus:outline-none w-full border border-gray-200 rounded px-2 py-1"
-                                    value={currentUser.phone || ''}
-                                    onChange={(e) =>
-                                        setCurrentUser({
-                                            ...currentUser,
-                                            phone: e.target.value,
-                                        })
-                                    }
-                                />
-                            </div>
-
-                            <div className="relative">
-                                <label
                                     htmlFor="password"
                                     className="text-xs absolute -top-2 left-2 px-2 bg-white"
                                 >
@@ -157,6 +135,50 @@ export function EditUser({ user }: { user: User }) {
                                     <option value="USER">Пользователь</option>
                                     <option value="ADMIN">Админ</option>
                                 </select>
+                            </div>
+
+                            <div className="relative">
+                                <label
+                                    htmlFor="phone"
+                                    className="text-xs absolute -top-2 left-2 px-2 bg-white"
+                                >
+                                    Телефон
+                                </label>
+                                <input
+                                    name="phone"
+                                    type="text"
+                                    placeholder="Телефон"
+                                    className="focus:ring-2 focus:ring-green-500 focus:outline-none w-full border border-gray-200 rounded px-2 py-1"
+                                    value={currentUser.phone || ''}
+                                    onChange={(e) =>
+                                        setCurrentUser({
+                                            ...currentUser,
+                                            phone: e.target.value,
+                                        })
+                                    }
+                                />
+                            </div>
+
+                            <div className="relative">
+                                <label
+                                    htmlFor="nickName"
+                                    className="text-xs absolute -top-2 left-2 px-2 bg-white"
+                                >
+                                    Позывной
+                                </label>
+                                <input
+                                    name="nickName"
+                                    type="text"
+                                    placeholder="Рики-тики-тави"
+                                    className="focus:ring-2 focus:ring-green-500 focus:outline-none w-full border border-gray-200 rounded px-2 py-1"
+                                    value={currentUser.nickName || ''}
+                                    onChange={(e) =>
+                                        setCurrentUser({
+                                            ...currentUser,
+                                            nickName: e.target.value,
+                                        })
+                                    }
+                                />
                             </div>
 
                             <div className="flex items-center justify-end gap-2 mt-1">
