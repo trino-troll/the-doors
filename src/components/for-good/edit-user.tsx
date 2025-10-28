@@ -133,7 +133,7 @@ export function EditUser({ user }: { user: User }) {
                                     }
                                 >
                                     <option value="USER">Пользователь</option>
-                                    <option value="ADMIN">Админ</option>
+                                    <option value="GOOD">Админ</option>
                                 </select>
                             </div>
 
