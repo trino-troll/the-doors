@@ -13,10 +13,5 @@ export default async function PrivateLayout({
         redirect('/login');
     }
 
-    return (
-        <div className="min-h-screen flex">
-            {/* Основной контент */}
-            <main className="flex-1">{children}</main>
-        </div>
-    );
+    return <>{children}</>;
 }
