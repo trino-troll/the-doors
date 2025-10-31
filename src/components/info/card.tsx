@@ -16,7 +16,15 @@ export function Card({ door }: { door: EcoshponPDK }) {
                         </div>
                         <div>{door.coating}</div>
                     </div>
-                    <div>{door.custom_sizes}</div>
+                    <div className="mb-2">
+                        {door.analogs.length > 0
+                            ? door.analogs.map((analog) => (
+                                  <p key={analog.model}>
+                                      {analog.factory} {analog.model}
+                                  </p>
+                              ))
+                            : 'Нет'}
+                    </div>
                 </div>
                 <DetailsButton door={door} />
             </div>

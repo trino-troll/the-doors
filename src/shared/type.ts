@@ -91,6 +91,7 @@ export type EcoshponPDK = {
     thickness: string;
     custom_sizes: string;
     image: string | null;
+    analogs: Analog[];
 };
 
 export type User = {
@@ -103,4 +104,11 @@ export type User = {
     nickName: string | null;
     createdAt: Date;
     updatedAt: Date;
+};
+
+export type Analog = {
+    factory: string;
+    model: string;
+    available_colors: string;
+    other_colors: string;
 };

@@ -23,7 +23,7 @@ export function DetailsButton({ door }: { door: EcoshponPDK }) {
                     <div className="relative z-10 w-[calc(100%-32px)] max-w-md rounded-lg bg-white p-4 shadow-lg max-h-[90vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-2">
                             <h2 className="text-base font-semibold">
-                                Описание заказа
+                                Описание модели
                             </h2>
                             <button
                                 className="px-2 py-1 text-sm text-gray-600 hover:text-black"
@@ -40,7 +40,7 @@ export function DetailsButton({ door }: { door: EcoshponPDK }) {
                                     <div className="absolute px-2 -top-3 left-3 bg-white text-gray-400">
                                         Модель
                                     </div>
-                                    {door.model}
+                                    <strong>{door.model}</strong>
                                 </h2>
                                 <div className="relative w-full my-2 border-2 border-green-500 p-2 rounded-xl">
                                     <div className="absolute px-2 -top-3 left-3 bg-white text-gray-400">
@@ -113,6 +113,29 @@ export function DetailsButton({ door }: { door: EcoshponPDK }) {
                                     Изменение размера
                                 </div>
                                 {door.custom_sizes}
+                            </div>
+
+                            <div className="relative my-4 border-2 border-green-500 p-2 rounded-xl">
+                                <div className="absolute px-2 -top-3 left-3 bg-white text-gray-400">
+                                    Аналоги
+                                </div>
+                                {door.analogs.length > 0 ? (
+                                    <ul>
+                                        {door.analogs.map((analog) => (
+                                            <li key={analog.model}>
+                                                <p className="underline">
+                                                    {analog.factory}{' '}
+                                                    <strong>
+                                                        {analog.model}
+                                                    </strong>
+                                                </p>
+                                                <p>{analog.available_colors}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    'НЕТ'
+                                )}
                             </div>
                         </div>
                     </div>
