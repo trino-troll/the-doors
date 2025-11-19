@@ -3,6 +3,7 @@ import { ListOrders } from '@/components/orders-in-stock/list-orders';
 import { getOrdersInStock } from './actions';
 import { SearchOrder } from '@/components/orders-in-stock/search-order';
 import { Suspense } from 'react';
+import { DeleteAll } from '@/components/orders-in-stock/delete-all';
 
 export default async function OrderInStock(props: {
     searchParams?: Promise<{
@@ -40,8 +41,8 @@ export default async function OrderInStock(props: {
                     Страница заказов на складе
                 </h2>
                 <AddOrder />
+                <DeleteAll />
             </div>
-            <p className="mb-2 text-red-600">Страница в разработке</p>
 
             <SearchOrder />
             <p>Показано ({filtered.length})</p>

@@ -17,8 +17,10 @@ export default async function RootLayout({
     const user = await getCurrentUser();
     return (
         <html lang="en">
-            <body className={`antialiased text-sm lg:text-[18px]`}>
-                <div className="block lg:hidden">
+            <body
+                className={`antialiased text-sm lg:text-[18px] relative pt-6 lg:pt-0`}
+            >
+                <div className="block lg:hidden w-full fixed top-0 z-50">
                     <NavbarMobile user={user} />
                 </div>
                 <div className="lg:flex h-screen">

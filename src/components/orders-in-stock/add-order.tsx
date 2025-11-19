@@ -24,7 +24,7 @@ export function AddOrder() {
             <Button onClick={() => setOpenAddOrder(true)}>
                 <>
                     <span className="block lg:hidden">
-                        <Plus strokeWidth={3} size={14} />
+                        <Plus strokeWidth={3} size={18} />
                     </span>
                     <span className="hidden lg:block">
                         <Plus strokeWidth={3} />

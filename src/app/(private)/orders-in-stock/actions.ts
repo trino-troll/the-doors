@@ -64,3 +64,13 @@ export async function updateOrderInStock({ order }: { order: OrderInStock }) {
 
     revalidatePath(routes.ORDER_IN_STOCK);
 }
+
+export async function deleteAllRecords() {
+    const records = await prisma.orderInStock.findMany();
+
+    if (records.length === 0) return;
+
+    await prisma.orderInStock.deleteMany();
+
+    revalidatePath(routes.ORDER_IN_STOCK);
+}
