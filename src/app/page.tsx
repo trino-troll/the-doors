@@ -1,15 +1,14 @@
-import Aquarium from '@/components/home/aquarium';
 import { SendAI } from '@/components/home/send-ai';
 import { WarningNotifycation } from '@/components/home/warning-notifycation';
 import { getCurrentUser } from '@/lib/auth';
-import { getNameUser } from './(private)/for-good/actions';
+import { routes } from '@/shared/const';
+import { redirect } from 'next/navigation';
 
 export default async function MainPage() {
-    const names = await getNameUser();
     const user = await getCurrentUser();
 
     if (!user) {
-        return <Aquarium fishes={names.length} names={names} />;
+        redirect(routes.LOGIN);
     }
 
     return (

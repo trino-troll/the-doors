@@ -84,6 +84,9 @@ model User {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@index([role]) // для поиска по роли
+    @@index([email, role])
 }
 
 enum Role {
@@ -113,4 +116,22 @@ model OrderBN {
     name        String
     orderNumber String?
     in1C        Boolean @default(false)
+}
+
+model verifyCode {
+    id       String  @id @default(cuid())
+    email    String
+    code     String
+    attempts Int     @default(0) // счётчик попыток
+    used     Boolean @default(false) // был ли использован
+
+    createdAt    DateTime  @default(now())
+    expiresAt    DateTime // срок действия
+    blockedUntil DateTime? //блокировка после неудачных попыток
+
+    @@index([email, createdAt]) // для поиска и сортировки
+    @@index([expiresAt]) // для проверки срока действия
+    @@index([used]) // для очистки использованных кодов
+    @@index([blockedUntil]) // для проверки блокировки
+    @@index([email, expiresAt, used]) // Составной для активных кодов
 }
