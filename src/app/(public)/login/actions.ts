@@ -7,12 +7,43 @@ import { redirect } from 'next/navigation';
 import { routes } from '@/shared/const';
 import { SendEmail } from '@/lib/mailer';
 import { randomInt, randomBytes } from 'crypto';
+import { getClientIP, normalizeIP } from '@/lib/ip-utils';
+import { RateLimiter } from '@/lib/rate-limiter';
 
 const LIMIT_TIME = 10 * 60 * 1000;
 
 // генерация случайного пароля и запиь в бд
 export async function verifyCode({ email }: { email: string }) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    //Получаю IP
+    const rawIp = await getClientIP();
+    const ip = normalizeIP(rawIp);
+
+    //Проверка лимитов
+    const limitCheck = await RateLimiter.check(ip, 'verify_code');
+
+    if (!limitCheck.allowed) {
+        console.log(
+            normalDate(),
+            'IP лимит verify_code',
+            ip,
+            'retryAfter:',
+            limitCheck.retryAfter,
+        );
+
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        return {
+            success: false,
+            message: 'Слишком много запросов. Попробуйте позже.',
+        };
+    }
+
+    // Логируем если мало попыток осталось
+    if (limitCheck.remaining && limitCheck.remaining < 2) {
+        console.log(`⚠️ IP ${ip} осталось попыток: ${limitCheck.remaining}`);
+    }
+
     const user = await prisma.user.findFirst({ where: { email } });
 
     if (!user) {
@@ -68,6 +99,30 @@ export async function verifyCode({ email }: { email: string }) {
 
 export async function login({ email, code }: { email: string; code: string }) {
     try {
+        // Получаем IP
+        const rawIp = await getClientIP();
+        const ip = normalizeIP(rawIp);
+
+        // Проверяем лимиты на вход
+        const limitCheck = await RateLimiter.check(ip, 'login_attempt');
+
+        if (!limitCheck.allowed) {
+            console.log(
+                normalDate(),
+                'IP лимит login_attempt:',
+                ip,
+                'retryAfter:',
+                limitCheck.retryAfter,
+            );
+
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+
+            return {
+                success: false,
+                error: `Слишком много попыток входа. Подождите ${limitCheck.retryAfter} секунд`,
+            };
+        }
+
         if (!email || !code) {
             await new Promise((resolve) => setTimeout(resolve, 3000));
             throw new Error('Не достаточно данных для входа');

@@ -40,7 +40,7 @@ export async function editUser({ user }: { user: User }) {
         });
         if (!editUser) {
             console.log(
-                `Не удалось найти пользователя с почтой ${user.email} и именем ${user.name}`
+                `Не удалось найти пользователя с почтой ${user.email} и именем ${user.name}`,
             );
             throw new Error('Не удалось найти пользователя');
         }
@@ -80,4 +80,27 @@ export async function deleteUser({ id }: { id: string }) {
 
 export async function getNameUser() {
     return await prisma.user.findMany({ select: { nickName: true } });
+}
+
+export async function getIpUsers() {
+    return prisma.ipRateLimit.findMany();
+}
+
+//Заготовка для ручной блокировки IP
+export async function blockOneIP(ip: string) {
+    if (!ip) return { success: false, message: 'IP не указан!' };
+
+    const recordIp = await prisma.ipRateLimit.findMany({
+        where: { ip },
+    });
+
+    if (recordIp.length === 0)
+        return { success: false, message: `Нет записей для IP ${ip}` };
+
+    await prisma.ipRateLimit.updateMany({
+        where: { ip },
+        data: { manual_locking: true },
+    });
+
+    return { success: true, message: `IP ${ip} заблокирован` };
 }

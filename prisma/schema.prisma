@@ -135,3 +135,20 @@ model verifyCode {
     @@index([blockedUntil]) // для проверки блокировки
     @@index([email, expiresAt, used]) // Составной для активных кодов
 }
+
+//Таблица ip и заблокированных ip
+model IpRateLimit {
+    id             String   @id @default(cuid())
+    ip             String
+    action         String // "verify_code", "login_attempt", "admin_verify"
+    count          Int      @default(1)
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    manual_locking Boolean  @default(false)
+
+    @@unique([ip, action], name: "ip_action")
+    // быстрый поиск
+    @@index([ip, action, createdAt], name: "ip_action_time")
+    @@index([createdAt], name: "created_at_idx")
+    @@index([manual_locking])
+}

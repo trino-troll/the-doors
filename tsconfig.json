@@ -23,6 +23,13 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        "test-rate-limit.js",
+        "src/lib/rate-limiter.js"
+    ],
     "exclude": ["node_modules"]
 }
