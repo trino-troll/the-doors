@@ -41,6 +41,14 @@ export class RateLimiter {
                 },
             });
 
+            // если ручная блокировка true
+            if (record.manual_locking) {
+                return {
+                    allowed: false,
+                    remaining: 0,
+                };
+            }
+
             if (record.count > limit.max) {
                 const oldest = await prisma.ipRateLimit.findFirst({
                     where: { ip, action, createdAt: { gte: windowStart } },

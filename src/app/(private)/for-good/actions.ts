@@ -87,7 +87,13 @@ export async function getIpUsers() {
 }
 
 //Заготовка для ручной блокировки IP
-export async function blockOneIP(ip: string) {
+export async function blockOneIP({
+    ip,
+    manual,
+}: {
+    ip: string;
+    manual: boolean;
+}) {
     if (!ip) return { success: false, message: 'IP не указан!' };
 
     const recordIp = await prisma.ipRateLimit.findMany({
@@ -99,8 +105,9 @@ export async function blockOneIP(ip: string) {
 
     await prisma.ipRateLimit.updateMany({
         where: { ip },
-        data: { manual_locking: true },
+        data: { manual_locking: manual },
     });
 
+    revalidatePath('/for-good');
     return { success: true, message: `IP ${ip} заблокирован` };
 }
