@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (ip !== 'unknown') {
-        const publicURL = process.env.PUBLIC_UR || request.nextUrl.origin;
+        const publicURL = process.env.PUBLIC_URL || request.nextUrl.origin;
         const apiUrl = `${publicURL}/api/check-ip`;
 
         const data = await fetch(apiUrl, {
