@@ -15,7 +15,10 @@ export async function middleware(request: NextRequest) {
     }
 
     if (ip !== 'unknown') {
-        const data = await fetch(new URL('/api/check-ip', request.url), {
+        const publicURL = process.env.PUBLIC_UR || request.nextUrl.origin;
+        const apiUrl = `${publicURL}/api/check-ip`;
+
+        const data = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +34,7 @@ export async function middleware(request: NextRequest) {
             const cookieStore = await cookies();
             cookieStore.delete('auth-token');
             // редирект на страницу входа
-            const logoutUrl = new URL('/login', request.url);
+            const logoutUrl = new URL('/login', publicURL);
             return NextResponse.redirect(logoutUrl, 307); // 307 сохраняет метод POST
         }
     }
