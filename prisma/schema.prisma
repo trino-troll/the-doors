@@ -145,7 +145,6 @@ model IpRateLimit {
     createdAt      DateTime @default(now())
     updatedAt      DateTime @updatedAt
     manual_locking Boolean  @default(false)
-    // client_name    String   @default("Не известный") //РАЗОБРАТЬСЯ С БД
 
     @@unique([ip, action], name: "ip_action")
     // быстрый поиск
