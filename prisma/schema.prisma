@@ -17,14 +17,14 @@ model Door {
     color           String
     innerPanelColor String
     count           Int     @default(0)
-    uplotnitel      String?
-    zamki           String?
-    protivosem      Boolean @default(true)
-    vneshPanel      String?
     clouseBox       Boolean @default(false)
-    porog           Boolean @default(false)
     inner           String?
+    porog           Boolean @default(false)
+    protivosem      Boolean @default(true)
     sizesDoor       String?
+    uplotnitel      String?
+    vneshPanel      String?
+    zamki           String?
 
     @@map("Двери")
 }
@@ -68,47 +68,29 @@ model Price {
     price String
 }
 
-enum Opening {
-    LEFT
-    RIGHT
-}
-
 model User {
-    id       String  @id @default(cuid())
-    name     String
-    email    String  @unique
-    phone    String?
-    password String
-    role     Role    @default(USER)
-    nickName String?
-
+    id        String   @id @default(cuid())
+    name      String
+    email     String   @unique
+    phone     String?
+    password  String
+    role      Role     @default(USER)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    nickName  String?
 
-    @@index([role]) // для поиска по роли
+    @@index([role])
     @@index([email, role])
-}
-
-enum Role {
-    GOOD
-    USER
 }
 
 model OrderInStock {
     id               String             @id @default(cuid())
-    numberOrder      String
     shortDescription String?
     fullDescription  String?
-    url              String[]           @default([])
+    numberOrder      String
     completed        Boolean            @default(false)
+    url              String[]           @default([])
     statusInStock    StatusOrderInStock @default(ORDERED)
-}
-
-enum StatusOrderInStock {
-    ORDERED
-    IN_STOCK
-    DELIVERY_PROCESS
-    DELIVERED
 }
 
 model OrderBN {
@@ -119,36 +101,51 @@ model OrderBN {
 }
 
 model verifyCode {
-    id       String  @id @default(cuid())
-    email    String
-    code     String
-    attempts Int     @default(0) // счётчик попыток
-    used     Boolean @default(false) // был ли использован
-
+    id           String    @id @default(cuid())
+    email        String
+    code         String
     createdAt    DateTime  @default(now())
-    expiresAt    DateTime // срок действия
-    blockedUntil DateTime? //блокировка после неудачных попыток
+    attempts     Int       @default(0)
+    blockedUntil DateTime?
+    expiresAt    DateTime
+    used         Boolean   @default(false)
 
-    @@index([email, createdAt]) // для поиска и сортировки
-    @@index([expiresAt]) // для проверки срока действия
-    @@index([used]) // для очистки использованных кодов
-    @@index([blockedUntil]) // для проверки блокировки
-    @@index([email, expiresAt, used]) // Составной для активных кодов
+    @@index([email, createdAt])
+    @@index([expiresAt])
+    @@index([used])
+    @@index([blockedUntil])
+    @@index([email, expiresAt, used])
 }
 
-//Таблица ip и заблокированных ip
 model IpRateLimit {
     id             String   @id @default(cuid())
     ip             String
-    action         String // "verify_code", "login_attempt", "admin_verify"
+    action         String
     count          Int      @default(1)
     createdAt      DateTime @default(now())
     updatedAt      DateTime @updatedAt
     manual_locking Boolean  @default(false)
+    client_name    String   @default("Не известный")
 
     @@unique([ip, action], name: "ip_action")
-    // быстрый поиск
-    @@index([ip, action, createdAt], name: "ip_action_time")
-    @@index([createdAt], name: "created_at_idx")
+    @@index([ip, action, createdAt], map: "ip_action_time")
+    @@index([createdAt], map: "created_at_idx")
     @@index([manual_locking])
+}
+
+enum Opening {
+    LEFT
+    RIGHT
+}
+
+enum Role {
+    GOOD
+    USER
+}
+
+enum StatusOrderInStock {
+    ORDERED
+    IN_STOCK
+    DELIVERY_PROCESS
+    DELIVERED
 }
