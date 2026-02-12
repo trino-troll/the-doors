@@ -111,3 +111,47 @@ export async function blockOneIP({
     revalidatePath('/for-good');
     return { success: true, message: `IP ${ip} заблокирован` };
 }
+
+// Имя IP.
+export async function editNameIP({ name, ip }: { name: string; ip: string }) {
+    if (!name || !ip) {
+        console.log(
+            new Date().toLocaleString(),
+            'Ошибка редактирования имени IP. Имя ',
+            name,
+            'IP ',
+            ip,
+        );
+        return {
+            success: false,
+            error: `Что-то отсутствует! Имя = ${name}, ip = ${ip}`,
+        };
+    }
+
+    try {
+        const records = await prisma.ipRateLimit.findMany({ where: { ip } });
+
+        if (records.length === 0) {
+            console.log(
+                new Date().toLocaleString(),
+                'Не удалось найти запись по IP для редактирования имени. IP = ',
+                ip,
+            );
+            return {
+                success: false,
+                error: 'Не удалось найти запись для редактирования',
+            };
+        }
+
+        await prisma.ipRateLimit.updateMany({
+            where: { ip },
+            data: { client_name: name },
+        });
+        revalidatePath('/for-good');
+    } catch (error) {
+        return {
+            success: false,
+            error: error,
+        };
+    }
+}

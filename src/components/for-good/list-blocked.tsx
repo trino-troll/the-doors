@@ -1,6 +1,7 @@
 import { getIpUsers } from '@/app/(private)/for-good/actions';
 import clsx from 'clsx';
 import { BlockedBtn } from './blocked-btn';
+import { EditNameIp } from './editNameIp';
 
 export async function ListBlocked() {
     const ipUsers = await getIpUsers();
@@ -14,6 +15,7 @@ export async function ListBlocked() {
                         <tr>
                             <th className="border">ip</th>
                             <th className="border">Действие</th>
+                            <th className="border px-1">Имя</th>
                             <th className="border px-1">Попыток</th>
                             <th className="border px-1">Блок</th>
                         </tr>
@@ -28,6 +30,13 @@ export async function ListBlocked() {
                             >
                                 <td className="px-2 border">{ip.ip}</td>
                                 <td className="px-2 border">{ip.action}</td>
+                                <td className="px-2 border flex gap-2">
+                                    {ip.client_name}
+                                    <EditNameIp
+                                        name={ip.client_name}
+                                        ip={ip.ip}
+                                    />
+                                </td>
                                 <td className="px-2 border text-center">
                                     {ip.count}
                                 </td>

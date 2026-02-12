@@ -12,7 +12,7 @@ export function Navbar({ user }: NavigationProps) {
         navbarItems.push(
             { href: routes.INCOMMING, title: 'Входные' },
             { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
-            { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' }
+            { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },
         );
     }
 
@@ -23,12 +23,12 @@ export function Navbar({ user }: NavigationProps) {
             { href: routes.INFO, title: 'Справка' },
             { href: routes.RECORDS, title: 'Записи' },
             { href: routes.ORDER_BN, title: 'Заказы БН' },
-            { href: routes.FOR_GOOD, title: 'Админка' }
+            { href: routes.FOR_GOOD, title: 'Админка' },
         );
     }
     return (
-        <div className="flex flex-col h-[100%]">
-            <div className="flex flex-col gap-1 flex-grow">
+        <div className="flex flex-col h-full">
+            <div className="flex flex-col gap-1 grow">
                 {navbarItems.map((nav) => (
                     <Link
                         key={nav.href}
