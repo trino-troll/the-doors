@@ -217,7 +217,7 @@ export async function verifyAdmin({
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 14 * 24 * 60 * 60, // 14 дней
+        maxAge: 30 * 24 * 60 * 60, // 14 дней
         path: '/',
     });
 
