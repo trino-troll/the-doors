@@ -10,6 +10,7 @@ export function Navbar({ user }: NavigationProps) {
 
     if (user) {
         navbarItems.push(
+            { href: routes.CHAT, title: 'Чат с друзьями' },
             // { href: routes.INCOMMING, title: 'Входные' },
             // { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
             { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },

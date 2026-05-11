@@ -112,3 +112,11 @@ export type Analog = {
     available_colors: string;
     other_colors: string;
 };
+
+export type ChatMessage = {
+    type: 'user' | 'system';
+    message: string;
+    userId: string;
+    name: string;
+    timestamp: Date;
+};

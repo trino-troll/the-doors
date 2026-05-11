@@ -20,7 +20,7 @@ export default async function PrivateLayout({
             <div className="block lg:hidden w-full fixed top-0 z-50">
                 <NavbarMobile user={user} />
             </div>
-            <div className="lg:flex h-screen">
+            <div className="lg:flex h-screen w-full">
                 <div className="flex-none p-2 w-64 hidden lg:block border-r-2 border-gray-200">
                     <Navbar user={user} />
                 </div>

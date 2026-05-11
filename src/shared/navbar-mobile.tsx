@@ -14,6 +14,7 @@ export function NavbarMobile({ user }: NavigationProps) {
 
     if (user) {
         navbarItemsMob.push(
+            { href: routes.CHAT, title: 'Чат с друзьями' },
             // { href: routes.INCOMMING, title: 'Входные' },
             // { href: routes.BETWEEN_ROOM, title: 'Межкомнатные' },
             { href: routes.ORDER_IN_STOCK, title: 'Заказы на складе' },

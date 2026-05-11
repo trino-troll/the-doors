@@ -9,4 +9,5 @@ export const routes = {
     ORDER_BN: '/ordersBN',
     INFO: '/info',
     FOR_GOOD: '/for-good',
+    CHAT: '/chat',
 };

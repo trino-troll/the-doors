@@ -32,7 +32,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
 // Проверка роли
 export async function checkUserRole(
-    allowedRoles: UserRole[]
+    allowedRoles: UserRole[],
 ): Promise<boolean> {
     const user = await getCurrentUser();
     return user ? allowedRoles.includes(user.role) : false;
