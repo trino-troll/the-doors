@@ -29,6 +29,53 @@ model Door {
     @@map("Двери")
 }
 
+// модель для справки по входным дверям
+model InfoIncommingDoor  {
+    id                  String   @id @default(cuid())
+    
+    name                String                           // название
+    factory             String   @default("Неизвестен")  // фабрика
+    price               Int      @default(0)             // цена
+    delivery            Int      @default(0)             // доставка
+    innerPanel          String   @default("Неизвестен")  // внутренняя панель
+    mirror              Boolean  @default(false)         // зеркало
+    externalPanel       String   @default("Неизвестен")  // внешняя панель
+    stamp               Boolean  @default(false)         // штамповка на полотне
+    thicknessCanvas     Int      @default(0)             // толщина полотна
+    thicknessBox        Int      @default(0)             // толщина коробки
+    typeBox             Boolean  @default(false)         // тип короба true - закрытый, false - открытый
+    metalThickness      Int      @default(0)             // толщина металла
+    coverage            String   @default("Неизвестен")  // покрытие
+    color               String   @default("Неизвестен")  // цвет покрытия
+    purging             String   @default("Неизвестен")  // контура уплотнения
+    peephole            Boolean  @default(false)         // глазок
+    mainLock            String   @default("Неизвестен")  // основной замок
+    mainNameLock        String   @default("Неизвестен")  // модель основного замка
+    additionalLock      String   @default("Неизвестен")  // дополнительный замок
+    additionalNameLock  String   @default("Неизвестен")  // модель дополнительного замка
+    nightLatch          Boolean  @default(false)         // ночная задвижка
+    internalFilling     String   @default("Неизвестен")  // внутреннее наполнение
+    adjustingСlamp      Boolean  @default(false)         // регулировка прижима
+    antiRemovablePins   Boolean  @default(false)         // противосъемные штыри
+    stainlessThreshold  Boolean  @default(false)         // порог из нержавеющей стали
+    loops               Int      @default(0)             // петли
+    packaging           String   @default("Неизвестен")  // упаковка
+    thermalRupture      Boolean  @default(false)         // терморазрыв
+    analogs             AnalogIncommingDoor[]            // список аналогов
+    imgUrl              String   @default("Неизвестен")  // урл до фото
+
+}
+model AnalogIncommingDoor {
+    id String @id @default(cuid())
+    name String
+    factory String
+    price Int
+    innerPanel String
+
+    doorId String
+    door InfoIncommingDoor @relation(fields: [doorId], references: [id], onDelete: Cascade)
+}
+
 model BetweenDoor {
     id           String  @id @default(cuid())
     name         String

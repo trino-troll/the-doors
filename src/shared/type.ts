@@ -120,3 +120,44 @@ export type ChatMessage = {
     name: string;
     timestamp: Date;
 };
+
+export type IncommingDoor = {
+    id: string;
+    name: string; // название
+    factory: string; // фабрика
+    price: number; // цена
+    delivery: number; // доставка
+    innerPanel: string; // внутренняя панель
+    mirror: boolean; // зеркало
+    externalPanel: string; // внешняя панель
+    stamp: boolean; // штамповка на полотне
+    thicknessCanvas: number; // толщина полотна
+    thicknessBox: number; // толщина коробки
+    typeBox: boolean; // тип короба true - закрытый, false - открытый
+    metalThickness: number; // толщина металла
+    coverage: string; // покрытие
+    color: string; // цвет покрытия
+    purging: string; // контура уплотнения
+    peephole: boolean; // глазок
+    mainLock: string; // основной замок
+    mainNameLock: string; // модель основного замка
+    additionalLock: string; // дополнительный замок
+    additionalNameLock: string; // модель дополнительного замка
+    nightLatch: boolean; // ночная задвижка
+    internalFilling: string; // внутреннее наполнение
+    adjustingСlamp: boolean; // регулировка прижима
+    antiRemovablePins: boolean; // противосъемные штыри
+    stainlessThreshold: boolean; // порог из нержавеющей стали
+    loops: number; // петли
+    packaging: string; // упаковка
+    thermalRupture: boolean; // терморазрыв
+    imgUrl: string; // путь до картинки
+    // analog: AnalogIncommingDoor;
+};
+
+export type AnalogIncommingDoor = {
+    name: string;
+    factory: string;
+    price: number;
+    innerPanel: string;
+};

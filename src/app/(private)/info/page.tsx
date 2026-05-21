@@ -1,14 +1,23 @@
-import { arrPDKEcoshpon } from '@/app/data/ecoshpon-pdk';
-import { Card } from '@/components/info/card';
+import { Button } from '@/shared/button';
+import { routes } from '@/shared/const';
+import { H1 } from '@/shared/h1';
+import Link from 'next/link';
 
 export default function InfoPage() {
     return (
-        <section className="pb-8">
-            <h1 className="mb-4">Справочная информация из прайса</h1>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-                {arrPDKEcoshpon.map((door) => (
-                    <Card door={door} key={door.model} />
-                ))}
+        <section>
+            <H1>Страницы выбора справочника</H1>
+            <div className="flex flex-col gap-4">
+                <Link href={routes.INFO_BETWEEN}>
+                    <Button variant={'outline'} size={'lg'} className="w-full">
+                        Межкомнатные
+                    </Button>
+                </Link>
+                <Link href={routes.INFO_INCOMMING}>
+                    <Button variant={'outline'} size={'lg'} className="w-full">
+                        Входные
+                    </Button>
+                </Link>
             </div>
         </section>
     );

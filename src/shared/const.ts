@@ -8,6 +8,9 @@ export const routes = {
     ORDER_IN_STOCK: '/orders-in-stock',
     ORDER_BN: '/ordersBN',
     INFO: '/info',
+    INFO_BETWEEN: '/info/between',
+    INFO_INCOMMING: '/info/incomming',
+    INFO_INCOMMING_ADD: '/info/incomming/add',
     FOR_GOOD: '/for-good',
     CHAT: '/chat',
 };
