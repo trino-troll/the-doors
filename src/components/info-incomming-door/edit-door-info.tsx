@@ -18,14 +18,7 @@ export function EditDoorInfo({ door }: { door: IncommingDoor }) {
     return (
         <>
             <Button onClick={() => setOpenEdit(true)}>
-                <>
-                    <span className="block lg:hidden">
-                        <PenSquare strokeWidth={3} size={14} />
-                    </span>
-                    <span className="hidden lg:block">
-                        <PenSquare strokeWidth={3} />
-                    </span>
-                </>
+                <PenSquare strokeWidth={2} />
             </Button>
 
             {openEdit ? (

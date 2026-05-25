@@ -2,6 +2,7 @@ import { H1 } from '@/shared/h1';
 import { getInfoIncommingDoor } from '../../actions';
 import clsx from 'clsx';
 import { EditDoorInfo } from '@/components/info-incomming-door/edit-door-info';
+import { ButtonBack } from '@/shared/button-back';
 
 export default async function IncommingInfoDoorPage({
     params,
@@ -17,12 +18,13 @@ export default async function IncommingInfoDoorPage({
     }
     return (
         <section>
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center gap-2">
+                <ButtonBack />
                 <H1 className="m-0!">{info.name}</H1>
-                <div className="text-xl md:text-2xl lg:text-3xl font-semibold">
-                    {info.price}
-                </div>
                 <EditDoorInfo door={info} />
+            </div>
+            <div className="text-center text-xl md:text-2xl lg:text-3xl font-semibold">
+                {info.price}
             </div>
             <table className="w-full md:w-auto">
                 <thead className="border border-black">
